@@ -72,69 +72,84 @@
   font-weight: 600;
   color: #005B97;
 }
-
-/* --- RESPONSIVE HEADER --- */
 @media (max-width: 768px) {
   .header {
-    flex-direction: column !important; /* Apilamos logo, nav y perfil verticalmente */
+    /* Usamos display grid para organizar las piezas como un rompecabezas */
+    display: grid !important;
+    grid-template-areas: 
+      "logo profile"
+      "nav  nav";
+    grid-template-columns: 1fr auto;
+    padding: 0.6rem 1rem !important;
+    gap: 0.8rem;
     height: auto !important;
-    padding: 1.5rem 1rem !important;
-    gap: 1.5rem;
   }
 
-  /* El contenedor de logo + módulos ahora es una sola columna */
+  /* 1. Logo arriba a la izquierda */
   .left-section {
-    grid-template-columns: 1fr !important;
-    justify-items: center;
-    gap: 1rem;
-    width: 100%;
+    grid-area: logo;
+    display: flex !important;
+    grid-template-columns: none !important; /* Quitamos el grid anterior */
+    justify-content: flex-start;
   }
 
-  /* Reducimos el logo para que no domine toda la pantalla del móvil */
   .logo-img {
-    height: 60px !important;
+    height: 40px !important; /* Mucho más pequeño para ahorrar espacio */
+    width: auto;
   }
 
-  /* Convertimos las 5 columnas del menú en 2 para que quepan bien */
-  .nav ul {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem !important;
+  /* 2. Perfil arriba a la derecha (en la misma fila que el logo) */
+  .profile-section {
+    grid-area: profile;
+    gap: 0.5rem !important;
+    justify-content: flex-end;
+  }
+
+  .profile-name {
+    display: none; /* Escondemos el nombre en móvil para que no empuje todo */
+  }
+
+  .profile-img {
+    height: 35px !important;
+    width: 35px !important;
+  }
+
+  /* 3. Navegación abajo del logo/perfil pero en 3 columnas compactas */
+  .nav {
+    grid-area: nav;
     width: 100%;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 0.5rem;
+  }
+
+  .nav ul {
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 columnas: ocupa menos espacio vertical */
+    gap: 0.4rem !important;
     justify-items: center;
   }
 
   .nav li {
+    width: 100%;
     text-align: center;
-    white-space: normal; /* Permite que el texto baje si el nombre del módulo es largo */
   }
 
   .nav a {
-    font-size: 1rem !important;
-    padding: 0.5rem;
+    font-size: 0.85rem !important; /* Texto pequeño pero legible */
+    padding: 0.3rem 0 !important;
+    font-weight: 500;
     display: block;
+    border-bottom: none !important; /* Quitamos bordes para que no se vea cargado */
   }
 
-  /* Centramos la sección de perfil al final del header */
-  .profile-section {
-    width: 100%;
-    justify-content: center;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-  }
-
-  .profile-img {
-    height: 45px !important;
-    width: 45px !important;
-  }
-
-  .profile-name {
-    font-size: 1rem !important;
+  .nav a:hover {
+    background-color: #f7dc4f33; /* Un toque de color sutil al tocar */
+    border-radius: 4px;
   }
 }
 
-/* Para celulares muy pequeños (menos de 400px), mejor una sola columna */
-@media (max-width: 400px) {
+/* Ajuste extra para pantallas muy delgadas */
+@media (max-width: 360px) {
   .nav ul {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* Si es muy pequeño, 2 columnas */
   }
 }
