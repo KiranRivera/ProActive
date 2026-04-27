@@ -670,8 +670,6 @@ a:hover {
   background-color: #79A8E8;
 }
 
-/* --- Mantén todo lo que ya tenías y añade/asegura esto --- */
-
 /* Contenedor principal para centrar la tarjeta en pantalla completa */
 .login-wrapper {
   display: flex;
@@ -721,6 +719,87 @@ a:hover {
 .footer-text {
   margin-top: 1.5rem;
   font-size: 0.9rem;
+}
+
+/* Contenedor principal de Login y Registro */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Actualizado con tu color exacto */
+  background-color: #79A8E8; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* La tarjeta blanca centrada */
+.login-card {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px; /* Tamaño ideal para que no se estire en PC */
+  text-align: center;
+}
+
+/* Títulos y etiquetas */
+.login-header h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.form-group label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: 600;
+  /* Azul de los labels (ajustado para que resalte) */
+  color: #79A8E8; 
+}
+
+/* Inputs y Selects */
+.login-form input, 
+.form-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #79A8E8; /* El borde cambia a tu azul al hacer click */
+}
+
+/* Botón de acción */
+.login-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #005B97; /* Mantenemos el azul oscuro para el botón (contraste) */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #004a7c;
+}
+
+/* Link de "Inicia sesión" */
+.link {
+  color: #005B97;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /* --- SECCIÓN RESPONSIVA PARA MÓVILES Y TABLETS --- */

@@ -34,7 +34,7 @@ function Login() {
           </button>
         </form>
         <p className="footer-text">
-          ¿No tienes cuenta? <a href="#">Regístrate aquí</a>
+          ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
         </p>
       </div>
     </div>

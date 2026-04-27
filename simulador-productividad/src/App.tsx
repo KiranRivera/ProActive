@@ -10,6 +10,7 @@ import Goals from "./components/Goals";
 import TeamManagement from "./components/TeamManagement";
 import Reports from "./components/Reports";
 import ActivityControl from "./components/ActivityControl";
+import Register from "./components/Register";
 
 // 1. Creamos un componente Layout que envuelve las páginas que SÍ llevan Header
 const AppLayout = () => (
@@ -25,6 +26,8 @@ function App() {
       <Routes>
         {/* RUTA SIN HEADER: El Login es independiente */}
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
 
         {/* RUTAS CON HEADER: Todas estas pasan por el AppLayout */}
         <Route element={<AppLayout />}>
