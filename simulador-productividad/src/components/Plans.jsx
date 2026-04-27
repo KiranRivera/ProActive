@@ -49,7 +49,7 @@ function Plans() {
     const planes = [
         { id: "basic", nombre: "Básico", precio: "Gratis", clase: "plan-basico-card" },
         { id: "premium", nombre: "Premium", precio: "$9.99/mes", clase: "plan-premium-card", destacado: true },
-        { id: "business", nombre: "Empresarial", precio: "$24.99/mes", clase: "plan-business-card" }
+        { id: "empresarial", nombre: "Empresarial", precio: "$24.99/mes", clase: "plan-business-card" }
     ];
 
     return (
