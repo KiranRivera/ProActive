@@ -158,22 +158,10 @@ function Register() {
               Inicia sesión
             </span>
           </p>
-          
-          {/* Badge informativo del plan seleccionado (Opcional) */}
-          <div style={{ marginTop: '15px' }}>
-            <small style={{ 
-              backgroundColor: '#e2e8f0', 
-              padding: '4px 10px', 
-              borderRadius: '20px',
-              fontSize: '0.75rem',
-              color: '#4a5568'
-            }}>
-              Plan seleccionado: <strong>{selectedPlan}</strong>
-            </small>
+        
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
