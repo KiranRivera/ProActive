@@ -726,7 +726,7 @@ a:hover {
 /* --- SECCIÓN RESPONSIVA PARA MÓVILES Y TABLETS --- */
 @media (max-width: 768px) {
   
-  /* 1. Evitar el desbordamiento lateral del cuerpo */
+  /* 1. Evitar el desbordamiento lateral */
   html, body {
     overflow-x: hidden !important;
     width: 100% !important;
@@ -755,7 +755,7 @@ a:hover {
     box-sizing: border-box !important;
   }
 
-  /* 4. Arreglo de las Tarjetas (Tareas, Actividades, Notas) */
+  /* 4. Arreglo de las Tarjetas */
   .activity-grid, .task-list, .notes-list {
     display: flex !important;
     flex-direction: column !important;
@@ -779,7 +779,7 @@ a:hover {
     margin-top: 1rem !important;
   }
 
-  /* 6. CORRECCIÓN DE CAMPOS DE TEXTO (Cuerpo de la página) */
+  /* 6. CORRECCIÓN DE CAMPOS DE TEXTO (Lo que se salía) */
   .task-form, .note-form, .reminder-form, .goal-form {
     flex-direction: column !important;
     width: 100% !important;
@@ -811,40 +811,50 @@ a:hover {
     width: 100% !important;
   }
 
-  /* 8. CALENDARIO: Columnas visibles con Scroll Horizontal */
+  /* 8. CORRECCIÓN DEL CALENDARIO (Para que no se aplaste) */
+  .calendar-page {
+    overflow-x: auto !important; /* El scroll se activa en la página o contenedor */
+    padding: 1rem 0 !important;
+  }
+
   .calendar-grid {
-    display: flex !important; 
-    overflow-x: auto !important;
-    gap: 0.6rem !important;
-    padding: 0.5rem 0.2rem 1.5rem 0.2rem !important;
+    display: grid !important;
+    /* Creamos 7 columnas, pero cada una mide 120px (no se encogen) */
+    grid-template-columns: repeat(7, 120px) !important; 
+    gap: 0.5rem !important;
+    width: max-content !important; /* Obliga al grid a ser tan ancho como sus columnas */
+    padding: 0 1rem 1.5rem 1rem !important;
     -webkit-overflow-scrolling: touch;
-    /* Esto ayuda a que el scroll se sienta como imán en cada columna */
-    scroll-snap-type: x mandatory; 
   }
 
   .calendar-day {
-    /* Mostramos aproximadamente 2.5 columnas para que se note que hay más */
-    flex: 0 0 calc(40% - 10px) !important; 
-    min-width: 130px !important; /* Evita que en pantallas mini sea ilegible */
+    background: #fff;
     height: 120px !important;
-    flex-shrink: 0 !important;
-    scroll-snap-align: start;
-    box-sizing: border-box !important;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex !important;
     flex-direction: column !important;
+    padding: 0.5rem !important;
+    box-sizing: border-box !important;
   }
 
   .day-number {
     font-size: 0.9rem !important;
-    border-bottom: 1px solid #eee;
-    width: 100%;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .events {
+    overflow-y: auto; /* Si hay muchos eventos en un día, scroll interno */
+    max-height: 80px;
   }
 
   .event, .reminder {
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;
     white-space: normal !important;
-    line-height: 1.2 !important;
-    margin-bottom: 3px !important;
+    word-wrap: break-word;
+    margin-bottom: 2px !important;
+    padding: 2px 4px !important;
+    line-height: 1.1;
   }
 }
