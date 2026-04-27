@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/global.css";
+// 1. IMPORTA TU LOGO (Asegúrate de que esté en la carpeta assets)
+import logo from "../assets/logo.jpeg"; 
 
-// 1. CONFIGURACIÓN DE LA URL DINÁMICA
+// CONFIGURACIÓN DE LA URL DINÁMICA
 const API_BASE = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL}/auth` 
   : "http://localhost:3001/api/auth";
@@ -19,23 +21,18 @@ function Login() {
     setLoading(true);
 
     try {
-      // Petición al endpoint de autenticación en la nube
       const response = await axios.post(`${API_BASE}/login`, { 
         correo: correo.toLowerCase().trim(), 
         password 
       });
 
       if (response.status === 200) {
-        // 1. Guardamos la sesión en el navegador
         localStorage.setItem("userId", response.data.id);
         localStorage.setItem("userName", response.data.nombre);
         localStorage.setItem("userPlan", response.data.plan);
-        
-        // 2. Redirección inmediata
         navigate("/tasks"); 
       }
     } catch (err) {
-      // Manejo de errores de conexión o credenciales
       const errorMsg = err.response?.data?.error || "Error de conexión con el servidor";
       alert(errorMsg);
     } finally {
@@ -46,7 +43,11 @@ function Login() {
   return (
     <div className="login-wrapper">
       <div className="container">
-        <h2 className="login-title">ProActive</h2>
+        {/* --- SECCIÓN DEL LOGO --- */}
+        <div className="login-header">
+          <img src={logo} alt="ProActive Logo" className="login-logo" />
+          <h2 className="login-title">ProActive</h2>
+        </div>
         
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">
@@ -72,7 +73,7 @@ function Login() {
           
           <button type="submit" className="btn-login" disabled={loading}>
             {loading ? (
-              <span className="loader-text">Verificando...</span>
+              <span className="loader-spinner"></span>
             ) : (
               "Entrar"
             )}
@@ -83,11 +84,6 @@ function Login() {
           <p className="footer-text">
             ¿No tienes cuenta? <span onClick={() => navigate("/register")} className="link">Crea una aquí</span>
           </p>
-          {process.env.NODE_ENV === 'development' && (
-             <small style={{color: '#888', display: 'block', marginTop: '10px'}}>
-               Conectado a: {API_BASE}
-             </small>
-          )}
         </div>
       </div>
     </div>
