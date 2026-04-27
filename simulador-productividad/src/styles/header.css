@@ -26,6 +26,7 @@
   object-fit: contain;
 }
 
+
 .nav ul {
   list-style: none;
   display: grid; /* grid para dos filas */
@@ -59,18 +60,34 @@
   gap: 0.8rem;
 }
 
+/* Estilo base de la imagen de perfil */
 .profile-img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%; /* círculo */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #F7DC4F;
+  border: 3px solid transparent; /* Espacio para el borde */
+  transition: border-color 0.3s ease;
 }
 
+/* Clases de bordes según el plan */
+.border-basic {
+  border-color: #007bff; /* Azul */
+}
+
+.border-premium {
+  border-color: #f1c40f; /* Amarillo/Dorado */
+}
+
+.border-business {
+  border-color: #27ae60; /* Verde */
+}
+
+/* Ajuste opcional para que el nombre se vea mejor */
 .profile-name {
-  font-size: 1.1rem;
+  margin-left: 10px;
   font-weight: 600;
-  color: #005B97;
+  color: #333;
 }
 @media (max-width: 768px) {
   .header {

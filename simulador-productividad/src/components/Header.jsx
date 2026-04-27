@@ -1,22 +1,40 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/header.css";
 import logo from "../assets/logo.jpeg";
 import profilePic from "../assets/Profile.jpeg";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userName, setUserName] = useState("Usuario");
+  const [userPlan, setUserPlan] = useState("basico");
   const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+    const storedPlan = localStorage.getItem("userPlan");
+    
+    if (storedName) setUserName(storedName);
+    if (storedPlan) setUserPlan(storedPlan.toLowerCase());
+  }, []);
 
   const handleLogout = () => {
-    // Aquí puedes limpiar el localStorage o estados de auth si los usas
-    console.log("Cerrando sesión...");
+    localStorage.clear();
     navigate("/");
   };
+
+  const getPlanClass = () => {
+    switch (userPlan) {
+      case "premium": return "border-premium";
+      case "empresarial": return "border-business";
+      default: return "border-basic";
+    }
+  };
+
+  // --- LÓGICA DE PERMISOS ---
+  // El plan básico solo ve estos
+  const showPremium = userPlan === "premium" || userPlan === "empresarial";
+  const showBusiness = userPlan === "empresarial";
 
   return (
     <header className="header">
@@ -26,24 +44,42 @@ function Header() {
         </div>
         <nav className="nav">
           <ul>
-            <li><a href="/tasks">Tareas</a></li>
-            <li><a href="/calendar">Calendario</a></li>
-            <li><a href="/notes">Notas</a></li>
-            <li><a href="/reminders">Recordatorios</a></li>
-            <li><a href="/stats">Mis Estadísticas</a></li>
-            <li><a href="/goals">Mis Metas</a></li>
-            <li><a href="/teams">Mis equipos</a></li>
-            <li><a href="/reports">Reportes</a></li>
-            <li><a href="/activities">Actividades</a></li>
+            {/* Funciones Básicas (Todos las ven) */}
+            <li><Link to="/tasks">Tareas</Link></li>
+            <li><Link to="/calendar">Calendario</Link></li>
+            <li><Link to="/notes">Notas</Link></li>
+
+            {/* Funciones Premium */}
+            {showPremium && (
+              <>
+                <li><Link to="/reminders">Recordatorios</Link></li>
+                <li><Link to="/stats">Estadísticas</Link></li>
+                <li><Link to="/goals">Metas</Link></li>
+              </>
+            )}
+
+            {/* Funciones Empresariales */}
+            {showBusiness && (
+              <>
+                <li><Link to="/teams">Equipos</Link></li>
+                <li><Link to="/reports">Reportes</Link></li>
+                <li><Link to="/activities">Actividades</Link></li>
+              </>
+            )}
           </ul>
         </nav>
       </div>
 
-      <div className="profile-section" onClick={toggleMenu} style={{ cursor: 'pointer', position: 'relative' }}>
-        <img src={profilePic} alt="Perfil" className="profile-img" />
-        <span className="profile-name">Emanuel</span>
+      <div className="profile-section" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <img 
+          src={profilePic} 
+          alt="Perfil" 
+          className={`profile-img ${getPlanClass()}`} 
+        />
+        <div className="user-info">
+          <span className="profile-name">{userName}</span>
+        </div>
 
-        {/* Menú desplegable */}
         {isMenuOpen && (
           <div className="profile-dropdown">
             <button onClick={handleLogout} className="logout-button">

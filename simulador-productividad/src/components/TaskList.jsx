@@ -1,113 +1,141 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // 1. Importamos Axios
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/global.css";
 
-// Configuración base de la API
-const API_URL = "http://localhost:3001/api/tasks";
-const USER_ID = "ROElvXHkgSOHUnMDMfKf"; // Tu ID de usuario de Firebase
+// 1. CONFIGURACIÓN DE LA URL DINÁMICA
+const API_URL = process.env.REACT_APP_API_URL 
+  ? `${process.env.REACT_APP_API_URL}/tasks` 
+  : "http://localhost:3001/api/tasks";
 
 function TaskList() {
-  const [tasks, setTasks] = useState([]); // Iniciamos con lista vacía
+  const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // 2. Cargar tareas al iniciar el componente
+  // RECUPERAMOS EL ID REAL DEL LOCALSTORAGE
+  const userId = localStorage.getItem("userId");
+
   useEffect(() => {
+    if (!userId) {
+      navigate("/");
+      return;
+    }
     fetchTasks();
-  }, []);
+  }, [userId, navigate]);
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${API_URL}/${USER_ID}`);
+      setLoading(true);
+      // Petición al backend (Local o Render)
+      const response = await axios.get(`${API_URL}/${userId}`);
       setTasks(response.data);
     } catch (error) {
-      console.error("Error al cargar tareas:", error);
+      console.error("Error al cargar tareas desde la nube:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // 3. Agregar tarea al Backend (POST)
   const addTask = async (e) => {
     e.preventDefault();
-    if (newTask.trim() === "") return;
+    if (newTask.trim() === "" || !userId) return;
 
     try {
-      await axios.post(`${API_URL}/${USER_ID}`, {
-        titulo: newTask // Debe coincidir con lo que espera tu controlador
+      await axios.post(`${API_URL}/${userId}`, {
+        titulo: newTask.trim() 
       });
       setNewTask("");
-      fetchTasks(); // Recargamos de la DB para tener el ID real generado por Firebase
+      fetchTasks(); // Refrescamos la lista desde el servidor
     } catch (error) {
-      console.error("Error al agregar tarea:", error);
+      console.error("Error al guardar tarea en la nube:", error);
     }
   };
 
-  // 4. Alternar estado (PATCH)
   const toggleTask = async (task) => {
     try {
-      await axios.patch(`${API_URL}/${USER_ID}/${task.id}`, {
+      await axios.patch(`${API_URL}/${userId}/${task.id}`, {
         completada: !task.completada
       });
       fetchTasks();
     } catch (error) {
-      console.error("Error al actualizar tarea:", error);
+      console.error("Error al actualizar estado en la nube:", error);
     }
   };
 
-  // 5. Eliminar tarea del Backend (DELETE)
   const deleteTask = async (id) => {
+    // Feedback visual inmediato antes de la petición
+    const originalTasks = [...tasks];
+    setTasks(tasks.filter((task) => task.id !== id));
+
     try {
-      await axios.delete(`${API_URL}/${USER_ID}/${id}`);
-      // Optimización: Actualizamos el estado local sin esperar al servidor
-      setTasks(tasks.filter((task) => task.id !== id));
+      await axios.delete(`${API_URL}/${userId}/${id}`);
     } catch (error) {
-      console.error("Error al eliminar tarea:", error);
+      console.error("Error al eliminar en la nube:", error);
+      setTasks(originalTasks); // Revertimos si falla
+      alert("No se pudo eliminar la tarea.");
     }
   };
 
-  // Filtramos usando "titulo" y "completada" según los nombres de tu Firestore
   const pendingTasks = tasks.filter((task) => !task.completada);
   const completedTasks = tasks.filter((task) => task.completada);
 
+  if (loading && tasks.length === 0) return <div className="loading">Sincronizando tus tareas...</div>;
+
   return (
     <div className="task-page">
-      <h2>Mis Tareas</h2>
+      <div className="header-flex">
+        <h2>Mis Tareas</h2>
+        <span className="sync-badge">Sincronizado</span>
+      </div>
 
-      <form className="task-form" onSubmit={addTask}>
+      <form className="task-form shadow-sm" onSubmit={addTask}>
         <input
           type="text"
-          placeholder="Nueva tarea..."
+          placeholder="Escribe algo que debas hacer..."
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
+          required
         />
-        <button type="submit">Agregar</button>
+        <button type="submit" className="btn-add">Agregar</button>
       </form>
 
-      {/* Pendientes */}
-      <section>
-        <h3>Pendientes</h3>
+      <section className="task-section">
+        <h3>Pendientes ({pendingTasks.length})</h3>
         <div className="task-list">
           {pendingTasks.map((task) => (
-            <div key={task.id} className="task-item">
-              <span onClick={() => toggleTask(task)}>{task.titulo}</span>
-              <button className="delete" onClick={() => deleteTask(task.id)}>X</button>
+            <div key={task.id} className="task-item card-animation">
+              <div className="task-text" onClick={() => toggleTask(task)}>
+                <div className="custom-checkbox"></div>
+                <span>{task.titulo}</span>
+              </div>
+              <button className="delete-btn" onClick={() => deleteTask(task.id)} title="Eliminar">
+                &times;
+              </button>
             </div>
           ))}
-          {pendingTasks.length === 0 && <p>No hay tareas pendientes</p>}
+          {!loading && pendingTasks.length === 0 && (
+            <p className="empty-msg">¡Excelente! No tienes nada pendiente.</p>
+          )}
         </div>
       </section>
 
-      {/* Completadas */}
-      <section>
-        <h3>Completadas</h3>
+      <section className="task-section">
+        <h3>Completadas ({completedTasks.length})</h3>
         <div className="task-list">
           {completedTasks.map((task) => (
-            <div key={task.id} className="task-item completed">
-              <span onClick={() => toggleTask(task)}>
-                {task.titulo} ✔
-              </span>
-              <button className="delete" onClick={() => deleteTask(task.id)}>X</button>
+            <div key={task.id} className="task-item completed card-animation">
+              <div className="task-text" onClick={() => toggleTask(task)}>
+                <div className="custom-checkbox checked">✓</div>
+                <span>{task.titulo}</span>
+              </div>
+              <button className="delete-btn" onClick={() => deleteTask(task.id)}>
+                &times;
+              </button>
             </div>
           ))}
-          {completedTasks.length === 0 && <p>No hay tareas completadas</p>}
+          {completedTasks.length === 0 && <p className="empty-msg">Aún no has terminado ninguna tarea hoy.</p>}
         </div>
       </section>
     </div>

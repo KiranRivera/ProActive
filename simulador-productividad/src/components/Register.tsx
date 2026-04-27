@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/global.css"; // Asegúrate de que aquí estén tus estilos de login
+import axios from "axios";
+import "../styles/global.css";
+
+// 1. CONFIGURACIÓN DE LA URL DINÁMICA
+const API_BASE = process.env.REACT_APP_API_URL 
+  ? `${process.env.REACT_APP_API_URL}/auth` 
+  : "http://localhost:3001/api/auth";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -8,24 +14,46 @@ function Register() {
     edad: "",
     correo: "",
     ocupacion: "",
-    password: "" // Añadido por funcionalidad
+    password: "",
+    plan: "basico" // Valor por defecto
   });
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos de registro:", formData);
-    // Aquí iría tu lógica con Firebase o API
-    alert("¡Registro exitoso!");
-    navigate("/");
+    setLoading(true);
+
+    // Limpieza básica de datos antes de enviar
+    const dataToSubmit = {
+      ...formData,
+      nombre: formData.nombre.trim(),
+      correo: formData.correo.toLowerCase().trim(),
+      edad: parseInt(formData.edad)
+    };
+
+    try {
+      // Petición al endpoint de registro en la nube
+      const response = await axios.post(`${API_BASE}/register`, dataToSubmit);
+
+      if (response.status === 201) {
+        alert("¡Registro exitoso en ProActive Cloud! Ahora puedes iniciar sesión.");
+        navigate("/");
+      }
+    } catch (err) {
+      const errorMsg = err.response?.data?.error || "Error al conectar con el servidor de registro";
+      alert(errorMsg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +61,7 @@ function Register() {
       <div className="login-card">
         <div className="login-header">
           <h2>Crear Cuenta</h2>
-          <p>Únete a ProActive y organiza tu vida</p>
+          <p>Únete a ProActive y sincroniza tus datos en la nube</p>
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>
@@ -46,6 +74,7 @@ function Register() {
               value={formData.nombre}
               onChange={handleChange}
               required
+              disabled={loading}
             />
           </div>
 
@@ -59,6 +88,7 @@ function Register() {
               onChange={handleChange}
               required
               min="1"
+              disabled={loading}
             />
           </div>
 
@@ -71,24 +101,44 @@ function Register() {
               value={formData.correo}
               onChange={handleChange}
               required
+              disabled={loading}
             />
           </div>
 
-          <div className="form-group">
-            <label>Ocupación</label>
-            <select 
-              name="ocupacion" 
-              value={formData.ocupacion} 
-              onChange={handleChange}
-              required
-              className="form-select"
-            >
-              <option value="">Selecciona tu ocupación</option>
-              <option value="Estudiante">Estudiante</option>
-              <option value="Trabajador">Trabajador</option>
-              <option value="Freelance">Freelance</option>
-              <option value="Otro">Otro</option>
-            </select>
+          <div className="row-group" style={{ display: 'flex', gap: '10px' }}>
+            <div className="form-group" style={{ flex: 1 }}>
+              <label>Ocupación</label>
+              <select 
+                name="ocupacion" 
+                value={formData.ocupacion} 
+                onChange={handleChange}
+                required
+                className="form-select"
+                disabled={loading}
+              >
+                <option value="">Selecciona</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Trabajador">Trabajador</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+
+            <div className="form-group" style={{ flex: 1 }}>
+              <label>Plan de Usuario</label>
+              <select 
+                name="plan" 
+                value={formData.plan} 
+                onChange={handleChange}
+                required
+                className="form-select"
+                disabled={loading}
+              >
+                <option value="basico">Básico (Azul)</option>
+                <option value="premium">Premium (Amarillo)</option>
+                <option value="empresarial">Empresarial (Verde)</option>
+              </select>
+            </div>
           </div>
 
           <div className="form-group">
@@ -96,20 +146,36 @@ function Register() {
             <input
               type="password"
               name="password"
-              placeholder="********"
+              placeholder="Mínimo 6 caracteres"
               value={formData.password}
               onChange={handleChange}
               required
+              minLength="6"
+              disabled={loading}
             />
           </div>
 
-          <button type="submit" className="login-button">
-            Registrarse
+          <button 
+            type="submit" 
+            className="login-button" 
+            disabled={loading}
+          >
+            {loading ? "Sincronizando..." : "Registrarse Ahora"}
           </button>
         </form>
 
         <div className="login-footer">
-          <p>¿Ya tienes cuenta? <span onClick={() => navigate("/")} className="link">Inicia sesión</span></p>
+          <p>
+            ¿Ya tienes cuenta?{" "}
+            <span onClick={() => navigate("/")} className="link">
+              Inicia sesión
+            </span>
+          </p>
+          {process.env.NODE_ENV === 'development' && (
+            <small style={{color: '#888', display: 'block', marginTop: '10px', textAlign: 'center'}}>
+              Target: {API_BASE}
+            </small>
+          )}
         </div>
       </div>
     </div>

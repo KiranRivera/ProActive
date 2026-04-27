@@ -146,75 +146,125 @@ a:hover {
 
 /* Página de calendario */
 .calendar-page {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .calendar-page h2 {
-  margin-bottom: 1rem;
-  color: #005B97; /* azul primario */
+  margin-bottom: 2rem;
+  color: #005B97;
   text-align: center;
+  font-size: 1.8rem;
 }
 
 /* Grid del calendario */
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.8rem;
-  justify-items: center;
+  grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días */
+  gap: 12px;
+  width: 100%;
 }
 
 /* Caja de cada día */
+/* Caja de cada día */
 .calendar-day {
-  background: #fff;
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: #ffffff;
+  /* Esto asegura que la celda sea siempre cuadrada o mantenga una proporción */
+  aspect-ratio: 1 / 1; 
+  /* Si aspect-ratio no es suficiente, min-height asegura que no se colapse */
+  min-height: 120px; 
+  
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0.5rem;
-  font-weight: bold;
-  color: #000000; /* negro */
+  padding: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid #eee;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Ajuste del Grid para que las columnas no se estiren raro */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  width: 100%;
+  align-items: start; /* Evita que las celdas se estiren verticalmente de forma desigual */
+}
+
+/* Número del día */
+.day-number {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 8px;
+  /* Asegura que el número siempre ocupe su lugar arriba */
+  flex-shrink: 0; 
+}
+
+/* Contenedor de eventos */
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1; /* Ocupa el espacio sobrante */
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+/* Estilo para los items de evento */
+.event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-bottom: 2px;
+  min-height: 24px; /* Altura mínima para el renglón del evento */
+}
+
+/* El texto dentro de los eventos */
+.event-item p {
+  margin: 0;
+  white-space: nowrap;     /* No salta de línea */
+  overflow: hidden;        /* Oculta lo que sobra */
+  text-overflow: ellipsis; /* Pone los "..." */
+  flex-grow: 1;
+}
+
+/* Colores por tipo */
+.event-item.evento {
+  background: #005B97;
+  color: white;
+}
+
+.event-item.recordatorio {
+  background: #009E49;
+  color: white;
+}
+
+/* Botón de borrar dentro del evento */
+.delete-event-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
   cursor: pointer;
 }
 
-.calendar-day:hover {
-  background: #79A8E8; /* azul claro */
-}
-
-.day-number {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-}
-
-.events {
-  margin-top: 0.3rem;
-  overflow-y: auto;
-  max-height: 60px;
-}
-
-/* Eventos normales */
-.event {
-  background: #005B97; /* azul primario */
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  margin-bottom: 0.2rem;
-}
-
-/* Recordatorios */
-.reminder {
-  background: #009E49; /* verde corporativo */
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  margin-bottom: 0.2rem;
+.delete-event-btn:hover {
+  background: #ff4d4d;
 }
 
 /* Página de notas */
@@ -599,23 +649,47 @@ a:hover {
   width: 400px;
   text-align: center;
 }
+/* Contenedor principal para que no toque los bordes de la pantalla */
 .activities-page {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 1rem;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centra todo el contenido */
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Separa automáticamente cada bloque hijo (Header, Selector, Form, Grid) */
+}
+
+/* Título principal */
+.activities-page h2 {
+  margin-bottom: 10px;
   text-align: center;
 }
 
-.activities-page h2 {
-  margin-bottom: 1rem;
-  color: #005B97; /* azul primario */
+/* El cuadro blanco del selector de equipo */
+.selector-container {
+  margin-bottom: 20px; /* Espacio extra debajo del selector */
 }
 
-.activity-grid {
+/* El formulario de asignación */
+.activity-form-container {
+  margin-top: 20px;
+  margin-bottom: 40px; /* Separa el formulario del tablero de tarjetas */
+  padding: 30px; /* Más aire interno */
+}
+
+/* Separación interna de los inputs del formulario */
+.form-inputs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  gap: 25px; /* Más separación entre el input de texto y el selector de miembros */
+  align-items: flex-end;
+}
+
+/* El tablero donde están las tarjetas */
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px; /* Más espacio entre tarjetas */
+  margin-top: 20px;
 }
 
 .activity-card {
@@ -668,6 +742,77 @@ a:hover {
 
 .activity-actions button:hover {
   background-color: #79A8E8;
+}
+/* Contenedor principal del selector */
+.selector-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.selector-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.selector-group label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+  margin-left: 0.2rem;
+}
+
+/* Envoltura para el icono personalizado */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #ced4da;
+  border-radius: 8px;
+  background-color: white;
+  color: #212529;
+  appearance: none; /* Quita la flecha por defecto de Windows/Mac */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Efecto al hacer clic o focus */
+.custom-select:focus {
+  border-color: #005B97;
+  box-shadow: 0 0 0 4px rgba(0, 91, 151, 0.1);
+}
+
+/* Flecha personalizada */
+.select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid #005B97;
+  border-bottom: 2px solid #005B97;
+  transform: translateY(-70%) rotate(-45deg);
+  pointer-events: none; /* Para que al hacer clic en la flecha se abra el select */
+}
+
+/* Estilo para las opciones (limitado por el navegador, pero ayuda) */
+.custom-select option {
+  padding: 10px;
 }
 
 /* Contenedor principal para centrar la tarjeta en pantalla completa */
