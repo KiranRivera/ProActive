@@ -1,73 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/global.css";
+import axios from "axios";
+
+// Usamos la misma lógica de URL que en el Login
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/auth` 
+  : "http://localhost:3001/api/auth";
 
 function Plans() {
   const navigate = useNavigate();
+  const [updating, setUpdating] = useState(null); // Para saber qué plan se está procesando
+
+  const handleSelectPlan = async (planId) => {
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      // Si no está logueado, lo mandamos a registrarse con el plan elegido
+      navigate(`/register?plan=${planId}`);
+      return;
+    }
+
+    setUpdating(planId);
+
+    try {
+      const response = await axios.patch(`${API_BASE}/update-plan`, {
+        userId: userId,
+        newPlan: planId
+      });
+
+      if (response.status === 200) {
+        // Actualizamos el dato local para que la UI cambie (ej. el color de la barra lateral)
+        localStorage.setItem("userPlan", planId);
+        alert(`¡Felicidades! Ahora tienes el plan ${planId}`);
+        navigate("/tasks"); // Redirigir al panel principal
+      }
+    } catch (err) {
+      alert("No se pudo actualizar el plan. Intenta de nuevo.");
+      console.error(err);
+    } finally {
+      setUpdating(null);
+    }
+  };
 
   const planes = [
-    {
-      id: "basic",
-      nombre: "Básico",
-      precio: "Gratis",
-      color: "var(--plan-basico)",
-      beneficios: ["Gestión de tareas", "1 proyecto", "Recordatorios básicos", "Soporte comunitario"],
-      clase: "plan-basico-card"
-    },
-    {
-      id: "premium",
-      nombre: "Premium",
-      precio: "$9.99/mes",
-      color: "var(--plan-premium)",
-      beneficios: ["Tareas ilimitadas", "Proyectos ilimitados", "Análisis de productividad", "IA generativa"],
-      clase: "plan-premium-card",
-      destacado: true
-    },
-    {
-      id: "business",
-      nombre: "Empresarial",
-      precio: "$24.99/mes",
-      color: "var(--plan-business)",
-      beneficios: ["Gestión de equipos", "Roles y permisos", "Reportes avanzados", "Soporte 24/7"],
-      clase: "plan-business-card"
-    }
+    { id: "basic", nombre: "Básico", precio: "Gratis", clase: "plan-basico-card" },
+    { id: "premium", nombre: "Premium", precio: "$9.99/mes", clase: "plan-premium-card", destacado: true },
+    { id: "business", nombre: "Empresarial", precio: "$24.99/mes", clase: "plan-business-card" }
   ];
 
   return (
     <div className="plans-wrapper">
-      <div className="plans-header">
-        <h2 className="plans-main-title">Elige el plan ideal para tu productividad</h2>
-        <p>Potencia tu flujo de trabajo con ProActive</p>
-      </div>
-
       <div className="plans-grid">
         {planes.map((plan) => (
           <div key={plan.id} className={`plan-card ${plan.clase} ${plan.destacado ? 'destacado' : ''}`}>
-            {plan.destacado && <span className="badge-destacado">Más Popular</span>}
-            <h3 className="plan-nombre">{plan.nombre}</h3>
+            <h3>{plan.nombre}</h3>
             <div className="plan-precio">{plan.precio}</div>
-            
-            <ul className="plan-beneficios">
-              {plan.beneficios.map((beneficio, index) => (
-                <li key={index}>
-                  <span className="check-icon">✓</span> {beneficio}
-                </li>
-              ))}
-            </ul>
-
             <button 
               className="btn-plan" 
-              onClick={() => navigate(`/register?plan=${plan.id}`)}
+              onClick={() => handleSelectPlan(plan.id)}
+              disabled={updating !== null}
             >
-              Seleccionar Plan
+              {updating === plan.id ? "Procesando..." : "Seleccionar Plan"}
             </button>
           </div>
         ))}
       </div>
-
-      <button className="btn-back-login" onClick={() => navigate("/login")}>
-        Volver al inicio
-      </button>
     </div>
   );
 }
