@@ -727,20 +727,17 @@ a:hover {
 @media (max-width: 768px) {
   
   /* 1. Evitar el desbordamiento lateral */
-  body {
-    overflow-x: hidden;
-    width: 100%;
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    position: relative;
   }
 
-  /* 2. Ajuste del Header (Menú) para que no se amontone */
+  /* 2. Ajuste del Header (Si este archivo afecta al header) */
   .header {
     flex-direction: column !important;
     padding: 1.5rem 1rem !important;
     height: auto !important;
-  }
-
-  .header h1 {
-    margin-bottom: 1rem;
   }
 
   .nav ul {
@@ -755,54 +752,63 @@ a:hover {
     width: 100% !important;
     padding: 1rem !important;
     margin: 0 auto !important;
+    box-sizing: border-box !important; /* Fundamental para que el padding no ensanche */
   }
 
-  /* 4. Arreglo de las Tarjetas (Activity Card) */
-  .activity-grid {
+  /* 4. Arreglo de las Tarjetas */
+  .activity-grid, .task-list, .notes-list {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 1.5rem !important;
+    gap: 1.2rem !important;
   }
 
-  .activity-card {
-    width: 95% !important; /* Para que casi toque los bordes pero con aire */
+  .activity-card, .task-item, .note-item, .goal-card {
+    width: 100% !important; /* Ocupa el ancho disponible */
     max-width: 100% !important;
     box-sizing: border-box !important;
     margin: 0 auto !important;
   }
 
-  /* 5. Botones de Acción (Pendiente, En progreso, etc.) */
+  /* 5. Botones de Acción */
   .activity-actions {
     display: flex !important;
-    flex-wrap: wrap !important; /* Hace que los botones bajen si no caben */
+    flex-wrap: wrap !important;
     gap: 8px !important;
     justify-content: center !important;
     margin-top: 1rem !important;
   }
 
-  .activity-actions button {
-    flex: 1 1 calc(50% - 10px); /* Dos botones por fila en pantallas pequeñas */
-    min-width: 120px;
-    padding: 12px 8px !important; /* Más grandes para dedos */
-    font-size: 0.85rem !important;
-  }
-
-  /* 6. Formularios (Tareas, Notas, etc.) */
+  /* 6. CORRECCIÓN DE CAMPOS DE TEXTO (Lo que se salía) */
   .task-form, .note-form, .reminder-form, .goal-form {
     flex-direction: column !important;
     width: 100% !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
   }
 
-  .task-form input, .note-form input, .note-form textarea {
-    width: 100% !important;
+  /* Forzamos a que TODOS los inputs respeten el ancho de la pantalla */
+  .task-form input, 
+  .note-form input, 
+  .note-form textarea,
+  .reminder-form input,
+  .goal-form input,
+  select {
+    width: 100% !important; /* Toma el ancho del contenedor padre */
     max-width: 100% !important;
+    box-sizing: border-box !important; /* El padding se cuenta HACIA ADENTRO */
+    margin: 0.5rem 0 !important;
+  }
+
+  .task-form button, .note-form button, .goal-form button {
+    width: 100% !important;
+    padding: 12px !important;
   }
 
   /* 7. Tablas de Reportes */
   .report-table {
     display: block !important;
-    overflow-x: auto !important; /* Permite deslizar la tabla si es muy ancha */
+    overflow-x: auto !important;
     width: 100% !important;
   }
 }
