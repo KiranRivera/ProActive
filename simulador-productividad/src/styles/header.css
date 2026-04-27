@@ -72,3 +72,69 @@
   font-weight: 600;
   color: #005B97;
 }
+
+/* --- RESPONSIVE HEADER --- */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column !important; /* Apilamos logo, nav y perfil verticalmente */
+    height: auto !important;
+    padding: 1.5rem 1rem !important;
+    gap: 1.5rem;
+  }
+
+  /* El contenedor de logo + módulos ahora es una sola columna */
+  .left-section {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  /* Reducimos el logo para que no domine toda la pantalla del móvil */
+  .logo-img {
+    height: 60px !important;
+  }
+
+  /* Convertimos las 5 columnas del menú en 2 para que quepan bien */
+  .nav ul {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    width: 100%;
+    justify-items: center;
+  }
+
+  .nav li {
+    text-align: center;
+    white-space: normal; /* Permite que el texto baje si el nombre del módulo es largo */
+  }
+
+  .nav a {
+    font-size: 1rem !important;
+    padding: 0.5rem;
+    display: block;
+  }
+
+  /* Centramos la sección de perfil al final del header */
+  .profile-section {
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+  }
+
+  .profile-img {
+    height: 45px !important;
+    width: 45px !important;
+  }
+
+  .profile-name {
+    font-size: 1rem !important;
+  }
+}
+
+/* Para celulares muy pequeños (menos de 400px), mejor una sola columna */
+@media (max-width: 400px) {
+  .nav ul {
+    grid-template-columns: 1fr !important;
+  }
+}
