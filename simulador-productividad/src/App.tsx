@@ -12,6 +12,7 @@ import TeamManagement from "./components/TeamManagement";
 import Reports from "./components/Reports";
 import ActivityControl from "./components/ActivityControl";
 import Register from "./components/Register";
+import Plans from "./components/Plans";
 
 // 1. Configuración de la API para Vite
 // Usamos import.meta.env en lugar de process.env
@@ -54,6 +55,7 @@ function App() {
           <Route path="/teams" element={<TeamManagement />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/activities" element={<ActivityControl />} />
+          <Route path="/plans" element={<Plans />} />
         </Route>
       </Routes>
     </Router>

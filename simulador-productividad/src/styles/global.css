@@ -1329,6 +1329,143 @@ a:hover {
   color: #c9302c;
 }
 
+
+:root {
+  --plan-basico: #79A8E8;   /* Azul claro */
+  --plan-premium: #FFD700;  /* Amarillo / Dorado */
+  --plan-business: #4CAF50; /* Verde */
+  --dark-blue: #005B97;
+}
+
+.plans-wrapper {
+  background-color: #f4f7f6;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plans-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.plans-main-title {
+  color: var(--dark-blue);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* Tarjeta Base */
+.plan-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border-top: 8px solid; /* El color del plan irá aquí */
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Diferenciación por Colores */
+.plan-basico-card { border-top-color: var(--plan-basico); }
+.plan-premium-card { border-top-color: var(--plan-premium); }
+.plan-business-card { border-top-color: var(--plan-business); }
+
+.plan-nombre {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.plan-precio {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-bottom: 2rem;
+}
+
+.plan-beneficios {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 2.5rem;
+  flex-grow: 1;
+}
+
+.plan-beneficios li {
+  margin-bottom: 12px;
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.check-icon {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+/* Botones Dinámicos */
+.btn-plan {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  background-color: #eee;
+  color: #333;
+}
+
+/* Colores de botones según el plan */
+.plan-basico-card .btn-plan { background-color: var(--plan-basico); color: white; }
+.plan-premium-card .btn-plan { background-color: var(--plan-premium); color: #333; }
+.plan-business-card .btn-plan { background-color: var(--plan-business); color: white; }
+
+.btn-plan:hover {
+  filter: brightness(0.9);
+}
+
+/* Badge para el destacado */
+.badge-destacado {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark-blue);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.btn-back-login {
+  margin-top: 3rem;
+  background: none;
+  border: none;
+  color: var(--dark-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* --- SECCIÓN RESPONSIVA PARA MÓVILES Y TABLETS --- */
 @media (max-width: 768px) {
   

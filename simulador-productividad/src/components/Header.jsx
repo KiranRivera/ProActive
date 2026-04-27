@@ -48,6 +48,7 @@ function Header() {
             <li><Link to="/tasks">Tareas</Link></li>
             <li><Link to="/calendar">Calendario</Link></li>
             <li><Link to="/notes">Notas</Link></li>
+             <li><Link to="/plans">Nuestros planes</Link></li>
 
             {/* Funciones Premium */}
             {showPremium && (
