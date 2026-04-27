@@ -1,0 +1,671 @@
+/* Fondo general */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #79A8E8; /* azul claro */
+  color: #000000; /* negro */
+}
+
+/* Header */
+.header {
+  background-color: #005B97; /* azul primario */
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: #F7DC4F; /* amarillo */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  color: #F7CC27; /* amarillo intenso */
+}
+
+/* Página de tareas */
+.task-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.task-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.task-form input {
+  flex: 1;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+section h3 {
+  margin-bottom: 0.5rem;
+  color: #005B97; /* azul primario */
+  font-size: 1.2rem;
+}
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.task-item {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item span {
+  cursor: pointer;
+}
+
+.task-item.completed {
+  background: #f0f0f0;
+}
+
+.task-item.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Inputs */
+input, textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Botones */
+button {
+  background-color: #005B97; /* azul primario */
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #79A8E8; /* azul claro */
+}
+
+button.delete {
+  background: #F7CC27; /* amarillo intenso */
+  color: #000000; /* negro */
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.delete:hover {
+  background: #F7DC4F; /* amarillo suave */
+}
+
+/* Links */
+a {
+  color: #005B97; /* azul primario */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #79A8E8; /* azul claro */
+}
+
+/* Página de calendario */
+.calendar-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.calendar-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97; /* azul primario */
+  text-align: center;
+}
+
+/* Grid del calendario */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.8rem;
+  justify-items: center;
+}
+
+/* Caja de cada día */
+.calendar-day {
+  background: #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0.5rem;
+  font-weight: bold;
+  color: #000000; /* negro */
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+  background: #79A8E8; /* azul claro */
+}
+
+.day-number {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.events {
+  margin-top: 0.3rem;
+  overflow-y: auto;
+  max-height: 60px;
+}
+
+/* Eventos normales */
+.event {
+  background: #005B97; /* azul primario */
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Recordatorios */
+.reminder {
+  background: #009E49; /* verde corporativo */
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Página de notas */
+.notes-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.notes-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97;
+}
+
+/* Formulario de notas */
+.note-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.note-form input {
+  width: 280px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.note-form textarea {
+  width: 280px;
+  height: 60px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+/* Lista de notas */
+.notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.note-item {
+  background: #fff;
+  padding: 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 220px;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.note-item h3 {
+  margin: 0 0 0.5rem 0;
+  color: #005B97;
+  font-size: 1rem;
+}
+
+.note-item p {
+  margin: 0 0 0.8rem 0;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+/* Página de recordatorios */
+.reminders-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.reminders-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97;
+}
+
+/* Formulario de recordatorios */
+.reminder-form {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.reminder-form input[type="text"] {
+  width: 200px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.reminder-form input[type="date"],
+.reminder-form input[type="time"] {
+  padding: 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* Lista de recordatorios */
+.reminders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.reminder-item {
+  background: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reminder-text {
+  font-size: 1rem;
+  color: #000000;
+}
+
+.reminder-date {
+  font-size: 0.85rem;
+  color: gray;
+  margin-top: 0.3rem;
+}
+
+/* Página de estadísticas */
+.statistics-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.statistics-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97;
+}
+
+/* KPIs */
+.kpi-grid {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.kpi-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-weight: bold;
+  color: #005B97; /* azul primario */
+  min-width: 180px;
+  text-align: center;
+}
+
+/* Gráficas */
+.stats-grid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin-bottom: 0.5rem;
+  color: #005B97; /* azul primario */
+}
+
+/* Página de metas */
+.goals-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.goals-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97; /* azul primario */
+}
+
+/* Formulario de metas */
+.goal-form {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.goal-form input {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.goal-form button {
+  background-color: #005B97; /* azul primario */
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.goal-form button:hover {
+  background-color: #79A8E8; /* azul claro */
+}
+
+/* Lista de metas */
+.goals-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.goal-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 280px;
+  text-align: center;
+}
+
+.goal-card h3 {
+  margin-bottom: 0.5rem;
+  color: #005B97; /* azul primario */
+}
+
+/* Barra de progreso */
+.progress-bar {
+  background: #79A8E8; /* azul claro */
+  border-radius: 6px;
+  overflow: hidden;
+  height: 12px;
+  margin: 0.5rem 0;
+}
+
+.progress {
+  background: #005B97; /* azul primario */
+  height: 100%;
+}
+
+.teams-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.team-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.team-card h3 {
+  color: #005B97; /* azul primario */
+  margin-bottom: 0.5rem;
+}
+
+.team-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.team-card li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.member-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.member-actions button {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.member-actions button:hover {
+  opacity: 0.9;
+}
+.member-actions .btn-desactivar {
+  background-color: #28E302; /* azul corporativo */
+  color: black;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.reports-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.reports-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97; /* azul primario */
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background: #f0f8ff; /* azul muy claro que combina con el fondo */
+}
+
+.report-table th, .report-table td {
+  border: 1px solid #ccc;
+  padding: 0.6rem;
+  text-align: center;
+  
+}
+
+.report-table th {
+  background:#3CD413; /* azul primario */
+  color: black;
+}
+.report-table tbody tr {
+  background-color: #E8FDE9; /* Verde pastel muy suave */
+}
+
+.report-summary {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.report-summary p {
+  margin: 0.3rem 0;
+  color: #000000; /* negro */
+}
+
+.report-charts {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chart-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 400px;
+  text-align: center;
+}
+.activities-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.activities-page h2 {
+  margin-bottom: 1rem;
+  color: #005B97; /* azul primario */
+}
+
+.activity-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.activity-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 280px;
+  text-align: left;
+}
+
+.activity-card h3 {
+  margin-bottom: 0.5rem;
+  color: #005B97;
+}
+
+.activity-card p {
+  margin: 0.3rem 0;
+  color: #000000;
+}
+
+/* Estados con colores corporativos */
+.activity-card.pendiente {
+  border-left: 6px solid #F7DC4F; /* amarillo */
+}
+
+.activity-card.en {
+  border-left: 6px solid #79A8E8; /* azul claro */
+}
+
+.activity-card.completada {
+  border-left: 6px solid #009E49; /* verde */
+}
+
+.activity-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.activity-actions button {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  background-color: #005B97;
+  color: white;
+}
+
+.activity-actions button:hover {
+  background-color: #79A8E8;
+}

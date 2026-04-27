@@ -1,0 +1,74 @@
+.header {
+  background-color: white;
+  color: #005B97;
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* todo al mismo nivel */
+  border-bottom: 3px solid #F7DC4F;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  position: relative;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Chau Philomene One', sans-serif;
+}
+
+.left-section {
+  display: grid;
+  grid-template-columns: auto 1fr; /* logo + módulos */
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo-img {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav ul {
+  list-style: none;
+  display: grid; /* grid para dos filas */
+  grid-template-columns: repeat(5, auto); /* 4 columnas */
+  gap: 1rem 2rem; /* espacio entre filas y columnas */
+  margin: 0;
+  padding: 0;
+}
+
+.nav li {
+  white-space: nowrap;
+}
+
+.nav a {
+  color: #005B97;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  padding-bottom: 0.2rem;
+}
+
+.nav a:hover {
+  color: #F7CC27;
+  border-bottom: 2px solid #F7CC27;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.profile-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%; /* círculo */
+  object-fit: cover;
+  border: 2px solid #F7DC4F;
+}
+
+.profile-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #005B97;
+}
