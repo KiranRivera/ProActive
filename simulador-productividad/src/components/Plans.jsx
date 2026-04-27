@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// Usamos la misma lógica de URL que en el Login
 const API_BASE = import.meta.env.VITE_API_URL
     ? `${import.meta.env.VITE_API_URL}/auth`
     : "http://localhost:3001/api/auth";
 
 function Plans() {
     const navigate = useNavigate();
-    const [updating, setUpdating] = useState(null); // Para saber qué plan se está procesando
+    const [updating, setUpdating] = useState(null);
 
     const handleSelectPlan = async (planId) => {
         const userId = localStorage.getItem("userId");
 
         if (!userId) {
-            // Si no está logueado, lo mandamos a registrarse con el plan elegido
             navigate(`/register?plan=${planId}`);
             return;
         }
@@ -25,18 +23,16 @@ function Plans() {
         try {
             const response = await axios.patch(`${API_BASE}/update-plan`, {
                 userId: userId,
-                newPlan: planId
+                newPlan: planId // Enviará "basico", "premium" o "empresarial"
             });
 
             if (response.status === 200) {
                 localStorage.setItem("userPlan", planId);
 
-                // --- LANZAR EL EVENTO AQUÍ ---
+                // Disparamos el evento para que el Header se actualice al instante
                 window.dispatchEvent(new Event("planUpdated"));
-                // -----------------------------
 
                 alert(`¡Felicidades! Ahora tienes el plan ${planId}`);
-                // No hace falta navigate si quieres que vea los cambios en el Header ahí mismo
             }
         } catch (err) {
             alert("No se pudo actualizar el plan. Intenta de nuevo.");
@@ -46,10 +42,27 @@ function Plans() {
         }
     };
 
+    // Ajustamos los IDs para que coincidan con la lógica del Header
     const planes = [
-        { id: "basic", nombre: "Básico", precio: "Gratis", clase: "plan-basico-card" },
-        { id: "premium", nombre: "Premium", precio: "$9.99/mes", clase: "plan-premium-card", destacado: true },
-        { id: "empresarial", nombre: "Empresarial", precio: "$24.99/mes", clase: "plan-business-card" }
+        { 
+            id: "basico", 
+            nombre: "Básico", 
+            precio: "Gratis", 
+            clase: "plan-basico-card" 
+        },
+        { 
+            id: "premium", 
+            nombre: "Premium", 
+            precio: "$9.99/mes", 
+            clase: "plan-premium-card", 
+            destacado: true 
+        },
+        { 
+            id: "empresarial", 
+            nombre: "Empresarial", 
+            precio: "$24.99/mes", 
+            clase: "plan-business-card" 
+        }
     ];
 
     return (
