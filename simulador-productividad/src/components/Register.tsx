@@ -25,7 +25,7 @@ function Register() {
     console.log("Datos de registro:", formData);
     // Aquí iría tu lógica con Firebase o API
     alert("¡Registro exitoso!");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -109,7 +109,7 @@ function Register() {
         </form>
 
         <div className="login-footer">
-          <p>¿Ya tienes cuenta? <span onClick={() => navigate("/login")} className="link">Inicia sesión</span></p>
+          <p>¿Ya tienes cuenta? <span onClick={() => navigate("/")} className="link">Inicia sesión</span></p>
         </div>
       </div>
     </div>

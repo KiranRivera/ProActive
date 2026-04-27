@@ -802,6 +802,39 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Contenedor del menú desplegable */
+.profile-dropdown {
+  position: absolute;
+  top: 110%; /* Aparece justo debajo de la sección de perfil */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  z-index: 2000; /* Por encima de todo */
+  min-width: 150px;
+}
+
+/* Botón de cerrar sesión */
+.logout-button {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: #d9534f; /* Color rojo para indicar salida */
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #f8f8f8;
+  color: #c9302c;
+}
+
 /* --- SECCIÓN RESPONSIVA PARA MÓVILES Y TABLETS --- */
 @media (max-width: 768px) {
   
@@ -911,5 +944,10 @@ a:hover {
     font-size: 0.7rem !important;
     white-space: normal !important;
     word-wrap: break-word;
+  }
+  .profile-dropdown {
+    top: auto;
+    bottom: -60px; /* Ajuste si tu header en móvil es muy pequeño */
+    right: 10px;
   }
 }
