@@ -97,7 +97,6 @@ function Goals() {
       <div className="header-flex">
         <div>
           <h2>Mis Metas</h2>
-          <p className="subtitle">Visualiza y alcanza tus objetivos</p>
         </div>
         <span className="badge-plan-premium">Objetivos Activos</span>
       </div>

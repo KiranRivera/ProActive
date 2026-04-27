@@ -99,9 +99,7 @@ function TeamManagement() {
       <div className="header-flex">
         <div>
           <h2>Administración de Equipos</h2>
-          <p className="subtitle">Gestiona departamentos y permisos corporativos</p>
         </div>
-        <span className="badge-enterprise">Enterprise Plan</span>
       </div>
 
       <div className="create-team-card shadow-sm card-animation">

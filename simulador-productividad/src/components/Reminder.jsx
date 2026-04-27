@@ -83,9 +83,8 @@ function Reminders() {
       <div className="header-flex">
         <div>
           <h2>Recordatorios</h2>
-          <p className="subtitle">Gestión de avisos inteligentes</p>
         </div>
-        <span className="badge-plan-premium">Premium</span>
+   
       </div>
 
       {/* Formulario Rediseñado */}
