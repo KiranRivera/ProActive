@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/global.css";
 
-// 1. CONFIGURACIÓN DE LA URL DINÁMICA
 const API_BASE_URL = process.env.REACT_APP_API_URL 
   ? `${process.env.REACT_APP_API_URL}/premium/goals` 
   : "http://localhost:3001/api/premium/goals";
@@ -13,165 +12,182 @@ function Goals() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Estados para el formulario
   const [title, setTitle] = useState("");
   const [target, setTarget] = useState("");
   const [deadline, setDeadline] = useState("");
 
-  // 2. RECUPERAMOS EL ID REAL DEL USUARIO
   const userId = localStorage.getItem("userId");
+  const userPlan = localStorage.getItem("userPlan");
 
   useEffect(() => {
-    // PROTECCIÓN DE RUTA
     if (!userId) {
       navigate("/");
       return;
     }
+    // Solo Premium y Empresarial
+    if (userPlan === "basico") {
+        alert("El seguimiento de metas es una función Premium.");
+        navigate("/tasks");
+        return;
+    }
     fetchGoals();
-  }, [userId, navigate]);
+  }, [userId, userPlan, navigate]);
 
-  // 3. Obtener Metas
   const fetchGoals = async () => {
     try {
-      // Usamos el userId dinámico que viene del login
       const response = await axios.get(`${API_BASE_URL}/${userId}`);
       setGoals(response.data);
       setLoading(false);
     } catch (error) {
-      console.error("Error al cargar metas desde la nube:", error);
+      console.error("Error al cargar metas:", error);
       setLoading(false);
     }
   };
 
-  // 4. Crear Meta
   const handleAddGoal = async (e) => {
     e.preventDefault();
-    if (!title || !target || !deadline) return alert("Completa todos los campos para crear tu meta.");
+    if (!title || !target || !deadline) return;
 
     try {
       await axios.post(`${API_BASE_URL}/${userId}`, {
         titulo: title.trim(),
         objetivo: parseInt(target),
         fechaLimite: deadline,
-        progreso: 0 // Inicializamos en 0
+        progreso: 0
       });
       setTitle(""); 
       setTarget(""); 
       setDeadline("");
       fetchGoals();
     } catch (error) {
-      alert("No se pudo guardar la meta. Intenta de nuevo.");
+      alert("Error al guardar la meta.");
     }
   };
 
-  // 5. Actualizar Progreso (+1)
   const incrementProgress = async (goalId, currentProgress, targetValue) => {
     if (currentProgress >= targetValue) return;
 
     try {
-      await axios.patch(`${API_BASE_URL}/${userId}/${goalId}`, {
-        progreso: currentProgress + 1
-      });
-      // Actualización optimista para que la UI se sienta rápida
+      // Actualización optimista para feedback instantáneo
       setGoals(prev => prev.map(g => 
         g.id === goalId ? { ...g, progreso: g.progreso + 1 } : g
       ));
+      await axios.patch(`${API_BASE_URL}/${userId}/${goalId}`, {
+        progreso: currentProgress + 1
+      });
     } catch (error) {
-      console.error("Error al actualizar progreso en el servidor");
+      fetchGoals(); // Revertir si falla
     }
   };
 
-  // 6. Eliminar Meta
   const handleDelete = async (goalId) => {
-    if (!window.confirm("¿Estás seguro de eliminar esta meta? El progreso se perderá.")) return;
+    if (!window.confirm("¿Eliminar esta meta?")) return;
     try {
       await axios.delete(`${API_BASE_URL}/${userId}/${goalId}`);
       fetchGoals();
     } catch (error) {
-      alert("Error al eliminar la meta");
+      alert("Error al eliminar");
     }
   };
 
-  if (loading && userId) return <div className="loading">Sincronizando tus metas...</div>;
+  if (loading && userId) return <div className="loading">Sincronizando metas...</div>;
 
   return (
     <div className="goals-page">
-      <div className="goals-header">
-        <h2>Mis Metas</h2>
+      <div className="header-flex">
+        <div>
+          <h2>Mis Metas</h2>
+          <p className="subtitle">Visualiza y alcanza tus objetivos</p>
+        </div>
+        <span className="badge-plan-premium">Objetivos Activos</span>
       </div>
 
-      <form className="goal-form" onSubmit={handleAddGoal}>
-        <div className="form-group">
-          <input 
-            type="text" 
-            placeholder="¿Qué quieres lograr?" 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            type="number" 
-            placeholder="Meta numérica (ej: 100)" 
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            type="date" 
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn-add">Agregar Meta</button>
-      </form>
+      <div className="goal-form-container shadow-sm card-animation">
+        <form className="goal-grid-form" onSubmit={handleAddGoal}>
+          <div className="input-group full-width">
+            <label>Nombre de la Meta</label>
+            <input 
+              type="text" 
+              placeholder="Ej: Leer 12 libros, Ahorrar para viaje..." 
+              value={title} 
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Objetivo Numérico</label>
+            <input 
+              type="number" 
+              placeholder="Ej: 100" 
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Fecha Límite</label>
+            <input 
+              type="date" 
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group btn-align">
+            <button type="submit" className="btn-add-goal">Crear Meta</button>
+          </div>
+        </form>
+      </div>
 
-      <div className="goals-list">
+      <div className="goals-grid">
         {goals.map((goal) => {
-          const percentage = Math.min(
-            Math.round((goal.progreso / goal.objetivo) * 100),
-            100
-          );
+          const percentage = Math.min(Math.round((goal.progreso / goal.objetivo) * 100), 100);
+          const isCompleted = percentage === 100;
 
           return (
-            <div key={goal.id} className={`goal-card ${percentage === 100 ? 'completed' : ''}`}>
-              <div className="goal-header">
+            <div key={goal.id} className={`goal-card card-animation ${isCompleted ? 'goal-completed' : ''}`}>
+              <div className="goal-card-header">
                 <h3>{goal.titulo}</h3>
-                <button className="delete-btn" onClick={() => handleDelete(goal.id)} title="Eliminar">×</button>
+                <button className="btn-delete-subtle" onClick={() => handleDelete(goal.id)}>&times;</button>
               </div>
 
-              <div className="progress-bar-container">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${percentage}%`, backgroundColor: percentage === 100 ? '#27ae60' : '#005B97' }}
-                ></div>
+              <div className="progress-section">
+                <div className="progress-labels">
+                  <span>{percentage}% completado</span>
+                  <span>{goal.progreso} / {goal.objetivo}</span>
+                </div>
+                <div className="progress-bar-bg">
+                  <div
+                    className="progress-bar-fill"
+                    style={{ width: `${percentage}%` }}
+                  ></div>
+                </div>
               </div>
 
-              <div className="goal-info">
-                <p><strong>Progreso:</strong> {goal.progreso} de {goal.objetivo} ({percentage}%)</p>
-                <p><strong>Fecha límite:</strong> {goal.fechaLimite}</p>
+              <div className="goal-footer">
+                <span className="goal-deadline">📅 Límite: {goal.fechaLimite}</span>
+                {!isCompleted ? (
+                  <button 
+                    className="btn-increment"
+                    onClick={() => incrementProgress(goal.id, goal.progreso, goal.objetivo)}
+                  >
+                    +1
+                  </button>
+                ) : (
+                  <span className="goal-done-icon">🎉</span>
+                )}
               </div>
-
-              {percentage < 100 && (
-                <button 
-                  className="update-btn"
-                  onClick={() => incrementProgress(goal.id, goal.progreso, goal.objetivo)}
-                >
-                  + Incrementar Progreso
-                </button>
-              )}
-              
-              {percentage === 100 && <div className="complete-badge">¡Meta Alcanzada! 🎉</div>}
             </div>
           );
         })}
-        {goals.length === 0 && !loading && (
-          <div className="empty-state">
-            <p>No tienes metas activas. El mejor momento para empezar es ahora.</p>
-          </div>
-        )}
       </div>
+
+      {goals.length === 0 && !loading && (
+        <div className="empty-state-container">
+          <div className="icon-bg">🎯</div>
+          <p>No hay metas en el radar. ¿Qué quieres lograr hoy?</p>
+        </div>
+      )}
     </div>
   );
 }

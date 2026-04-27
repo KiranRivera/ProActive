@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/global.css";
 
-// 1. CONFIGURACIÓN DE LA URL DINÁMICA
 const API_BASE_URL = process.env.REACT_APP_API_URL 
   ? `${process.env.REACT_APP_API_URL}/business/teams` 
   : "http://localhost:3001/api/business/teams";
@@ -12,26 +11,18 @@ function TeamManagement() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newTeamName, setNewTeamName] = useState("");
-  
   const navigate = useNavigate();
 
-  // RECUPERAMOS DATOS DE SESIÓN REAL
   const userId = localStorage.getItem("userId");
   const userPlan = localStorage.getItem("userPlan");
 
   useEffect(() => {
-    // 2. PROTECCIÓN DE RUTA
-    if (!userId) {
-      navigate("/");
-      return;
-    }
-
+    if (!userId) { navigate("/"); return; }
     if (userPlan !== "empresarial") {
-      alert("La gestión de equipos es exclusiva del Plan Empresarial.");
+      alert("Acceso denegado: Se requiere Plan Empresarial.");
       navigate("/tasks");
       return;
     }
-
     fetchTeams();
   }, [userId, userPlan, navigate]);
 
@@ -41,32 +32,32 @@ function TeamManagement() {
       setTeams(response.data);
       setLoading(false);
     } catch (error) {
-      console.error("Error al cargar equipos desde la nube:", error);
+      console.error("Error al cargar equipos:", error);
       setLoading(false);
     }
   };
 
   const handleCreateTeam = async (e) => {
     e.preventDefault();
-    if (!newTeamName.trim() || !userId) return;
+    if (!newTeamName.trim()) return;
     try {
       await axios.post(`${API_BASE_URL}/${userId}`, {
         nombre: newTeamName.trim(),
-        descripcion: "Nuevo equipo gestionado vía ProActive Cloud"
+        descripcion: "Equipo gestionado vía ProActive Enterprise"
       });
       setNewTeamName("");
       fetchTeams();
     } catch (error) {
-      alert("Error al crear el equipo en el servidor.");
+      alert("Error al crear el equipo.");
     }
   };
 
   const handleAddMember = async (teamId) => {
-    const nombre = prompt("Nombre del nuevo miembro:");
-    const role = prompt("Rol (Administrador, Colaborador, Lector):");
-    const correo = prompt("Correo electrónico:");
+    const nombre = prompt("Nombre del colaborador:");
+    const correo = prompt("Correo corporativo:");
+    const role = prompt("Rol (Admin, Editor, Lector):");
 
-    if (nombre && role && correo) {
+    if (nombre && correo && role) {
       try {
         await axios.post(`${API_BASE_URL}/${userId}/${teamId}/members`, {
           nombre: nombre.trim(), 
@@ -75,7 +66,7 @@ function TeamManagement() {
         });
         fetchTeams();
       } catch (error) {
-        alert("No se pudo añadir al miembro. Verifica los datos.");
+        alert("Error al añadir miembro.");
       }
     }
   };
@@ -87,89 +78,91 @@ function TeamManagement() {
       });
       fetchTeams();
     } catch (error) {
-      console.error("Error al cambiar estado en la nube");
+      console.error("Error de conexión");
     }
   };
 
   const handleRemoveMember = async (teamId, memberId) => {
-    if (!window.confirm("¿Estás seguro de eliminar a este miembro del equipo?")) return;
+    if (!window.confirm("¿Retirar a este miembro del equipo?")) return;
     try {
       await axios.delete(`${API_BASE_URL}/${userId}/${teamId}/members/${memberId}`);
       fetchTeams();
     } catch (error) {
-      alert("Error al eliminar miembro");
+      alert("No se pudo eliminar.");
     }
   };
 
-  if (loading && userId) return <div className="loading">Sincronizando estructura de equipos...</div>;
+  if (loading && userId) return <div className="loading">Sincronizando organización...</div>;
 
   return (
     <div className="teams-page">
       <div className="header-flex">
-        <h2>Administración de Equipos</h2>
+        <div>
+          <h2>Administración de Equipos</h2>
+          <p className="subtitle">Gestiona departamentos y permisos corporativos</p>
+        </div>
+        <span className="badge-enterprise">Enterprise Plan</span>
       </div>
 
-      <div className="team-card shadow-sm">
+      <div className="create-team-card shadow-sm card-animation">
         <form onSubmit={handleCreateTeam} className="create-team-form">
           <input 
             type="text" 
-            placeholder="Nombre del nuevo departamento o equipo..." 
+            placeholder="Nombre del departamento (Ej: Marketing, I+D...)" 
             value={newTeamName}
             onChange={(e) => setNewTeamName(e.target.value)}
-            className="input-main"
           />
-          <button type="submit" className="btn-add-team">
-            Crear Equipo
-          </button>
+          <button type="submit" className="btn-add-team">Crear Equipo</button>
         </form>
       </div>
 
       <div className="teams-grid">
         {teams.map((team) => (
-          <div key={team.id} className="team-card card-animation">
-            <div className="team-card-header">
+          <div key={team.id} className="team-container card-animation">
+            <div className="team-header">
               <h3>{team.nombre}</h3>
-              <button 
-                className="btn-add-member-icon" 
-                onClick={() => handleAddMember(team.id)}
-                title="Añadir Miembro"
-              >
-                +
-              </button>
+              <button className="btn-circle-add" onClick={() => handleAddMember(team.id)} title="Añadir Miembro">+</button>
+            </div>
+
+            <div className="members-table-header">
+              <span>Colaborador</span>
+              <span>Estado</span>
+              <span>Acciones</span>
             </div>
 
             <ul className="member-list">
               {team.members && team.members.map((member) => (
-                <li key={member.id} className="member-item">
+                <li key={member.id} className="member-row">
                   <div className="member-info">
-                    <div className="member-main">
-                      <strong>{member.nombre}</strong>
-                      <span className="member-role">{member.role}</span>
-                    </div>
-                    <span className={`status-dot ${member.active ? "active" : "inactive"}`}>
-                      {member.active ? "● Activo" : "● Inactivo"}
+                    <span className="m-name">{member.nombre}</span>
+                    <span className="m-role">{member.role}</span>
+                  </div>
+                  
+                  <div className="member-status">
+                    <span className={`status-pill ${member.active ? "active" : "inactive"}`}>
+                      {member.active ? "Activo" : "Pausado"}
                     </span>
                   </div>
                   
                   <div className="member-actions">
                     <button
-                      className={`btn-status ${member.active ? "warn" : "success"}`}
+                      className={`btn-action-small ${member.active ? "btn-pause" : "btn-resume"}`}
                       onClick={() => handleToggleStatus(team.id, member.id, member.active)}
                     >
-                      {member.active ? "Pausar" : "Activar"}
+                      {member.active ? "⏸" : "▶"}
                     </button>
                     <button
-                      className="btn-delete-member"
+                      className="btn-action-small btn-delete"
                       onClick={() => handleRemoveMember(team.id, member.id)}
                     >
-                      Eliminar
+                      🗑
                     </button>
                   </div>
                 </li>
               ))}
             </ul>
             {(!team.members || team.members.length === 0) && (
-              <p className="empty-members">Sin colaboradores asignados.</p>
+              <div className="empty-members-box">Sin colaboradores asignados.</div>
             )}
           </div>
         ))}

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/global.css";
 
-// 1. CONFIGURACIÓN DE LA URL DINÁMICA
 const API_BASE_URL = process.env.REACT_APP_API_URL 
   ? `${process.env.REACT_APP_API_URL}/premium/reminders` 
   : "http://localhost:3001/api/premium/reminders";
@@ -13,29 +12,23 @@ function Reminders() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // RECUPERAMOS DATOS DE SESIÓN REAL
   const userId = localStorage.getItem("userId");
   const userPlan = localStorage.getItem("userPlan");
 
-  // Estados para el formulario
   const [newReminder, setNewReminder] = useState("");
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
 
   useEffect(() => {
-    // 2. PROTECCIÓN DE RUTA Y PLAN
     if (!userId) {
       navigate("/");
       return;
     }
-
-    // Solo Premium y Empresarial tienen acceso a esta sección
     if (userPlan === "basico") {
       alert("Los recordatorios son una función exclusiva de planes Premium.");
       navigate("/tasks");
       return;
     }
-
     fetchReminders();
   }, [userId, userPlan, navigate]);
 
@@ -54,7 +47,6 @@ function Reminders() {
     e.preventDefault();
     if (newReminder.trim() === "" || !newDate || !newTime || !userId) return;
 
-    // Formato ISO-ish para el backend
     const combinedDateTime = `${newDate}T${newTime}`;
 
     try {
@@ -75,7 +67,7 @@ function Reminders() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Deseas eliminar este recordatorio definitivamente?")) return;
+    if (!window.confirm("¿Deseas eliminar este recordatorio?")) return;
     try {
       await axios.delete(`${API_BASE_URL}/${userId}/${id}`);
       fetchReminders();
@@ -84,80 +76,89 @@ function Reminders() {
     }
   };
 
-  if (loading && userId) return <div className="loading">Sincronizando avisos con la nube...</div>;
+  if (loading && userId) return <div className="loading">Sincronizando avisos...</div>;
 
   return (
     <div className="reminders-page">
       <div className="header-flex">
-        <h2>Recordatorios</h2>
+        <div>
+          <h2>Recordatorios</h2>
+          <p className="subtitle">Gestión de avisos inteligentes</p>
+        </div>
+        <span className="badge-plan-premium">Premium</span>
       </div>
 
-      <form className="reminder-form shadow-sm" onSubmit={addReminder}>
-        <div className="form-row">
-          <input
-            type="text"
-            placeholder="¿Qué necesitas que te recordemos?..."
-            value={newReminder}
-            onChange={(e) => setNewReminder(e.target.value)}
-            required
-            disabled={loading}
-          />
-        </div>
-        <div className="form-row inputs-inline">
-          <input
-            type="date"
-            value={newDate}
-            onChange={(e) => setNewDate(e.target.value)}
-            required
-            disabled={loading}
-          />
-          <input
-            type="time"
-            value={newTime}
-            onChange={(e) => setNewTime(e.target.value)}
-            required
-            disabled={loading}
-          />
-          <button type="submit" className="btn-add-reminder" disabled={loading}>
-            {loading ? "..." : "Agendar"}
-          </button>
-        </div>
-      </form>
+      {/* Formulario Rediseñado */}
+      <div className="reminder-form-container shadow-sm card-animation">
+        <form className="reminder-grid-form" onSubmit={addReminder}>
+          <div className="input-group full-width">
+            <label>¿Qué debemos recordarte?</label>
+            <input
+              type="text"
+              placeholder="Ej: Reunión de presupuesto, Tomar medicina..."
+              value={newReminder}
+              onChange={(e) => setNewReminder(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Fecha</label>
+            <input
+              type="date"
+              value={newDate}
+              onChange={(e) => setNewDate(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Hora</label>
+            <input
+              type="time"
+              value={newTime}
+              onChange={(e) => setNewTime(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group btn-align">
+            <button type="submit" className="btn-agendar" disabled={loading}>
+              {loading ? "..." : "Agendar"}
+            </button>
+          </div>
+        </form>
+      </div>
 
-      <div className="reminders-list">
+      {/* Listado de Recordatorios */}
+      <div className="reminders-grid">
         {reminders.map((reminder) => {
-          // Dividimos la fecha y hora para mostrarlas con mejor formato
           const [date, time] = reminder.fechaHora ? reminder.fechaHora.split("T") : ["--", "--"];
-
           return (
-            <div key={reminder.id} className="reminder-item card-animation">
-              <div className="reminder-content">
-                <div className="reminder-info">
-                  <span className="reminder-text">{reminder.titulo}</span>
-                  <p className="reminder-date">
-                    <span>📅 {date}</span>
-                    <span className="time-sep">|</span>
-                    <span>⏰ {time}</span>
-                  </p>
+            <div key={reminder.id} className="reminder-card card-animation">
+              <div className="reminder-tag" style={{ backgroundColor: reminder.color }}></div>
+              <div className="reminder-body">
+                <span className="reminder-title">{reminder.titulo}</span>
+                <div className="reminder-meta">
+                  <span>📅 {date}</span>
+                  <span className="dot">•</span>
+                  <span>⏰ {time}</span>
                 </div>
               </div>
               <button 
-                className="delete-btn-icon" 
+                className="btn-delete-subtle" 
                 onClick={() => handleDelete(reminder.id)}
-                title="Eliminar recordatorio"
               >
-                ×
+                &times;
               </button>
             </div>
           );
         })}
-        
-        {!loading && reminders.length === 0 && (
-          <div className="empty-state">
-            <p className="empty-msg">No tienes avisos programados. ¡Todo bajo control! ✨</p>
-          </div>
-        )}
       </div>
+
+      {!loading && reminders.length === 0 && (
+        <div className="empty-state-container">
+          <div className="icon-bg">🔔</div>
+          <p>No tienes avisos programados. ¡Todo bajo control!</p>
+        </div>
+      )}
     </div>
   );
 }

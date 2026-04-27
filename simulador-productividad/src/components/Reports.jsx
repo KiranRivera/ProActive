@@ -118,10 +118,8 @@ function Reports() {
     <div className="reports-page">
       <div className="header-flex">
         <div>
-          <h2>Panel de Analítica</h2>
-          <p className="user-context">Dashboard administrativo</p>
+          <h2>Reporte por equipo</h2>
         </div>
-        <span className="badge-plan-active empres">Módulo Empresarial</span>
       </div>
 
       <div className="selector-container shadow-sm">

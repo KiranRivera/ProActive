@@ -335,65 +335,156 @@ a:hover {
 
 /* Página de recordatorios */
 .reminders-page {
-  max-width: 800px;
+  max-width: 900px; /* Un poco más ancho para el grid */
   margin: 2rem auto;
-  padding: 1rem;
-  text-align: center;
+  padding: 0 1.5rem;
 }
 
 .reminders-page h2 {
-  margin-bottom: 1rem;
   color: #005B97;
+  margin-bottom: 0.2rem;
+  font-size: 1.8rem;
 }
 
-/* Formulario de recordatorios */
-.reminder-form {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+.subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
 }
 
-.reminder-form input[type="text"] {
-  width: 200px;
-  padding: 0.5rem;
-  font-size: 0.9rem;
+/* Contenedor del Formulario */
+.reminder-form-container {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  border: 1px solid #eef2f6;
 }
 
-.reminder-form input[type="date"],
-.reminder-form input[type="time"] {
-  padding: 0.4rem;
-  font-size: 0.9rem;
+.reminder-grid-form {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.8fr 120px; /* Reparto proporcional */
+  gap: 15px;
+  align-items: end; /* Alinea etiquetas y campos a la base */
 }
 
-/* Lista de recordatorios */
-.reminders-list {
+/* Manejo de inputs y grupos */
+.input-group {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  align-items: center;
+  gap: 6px;
+  text-align: left;
 }
 
-.reminder-item {
-  background: #fff;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  width: 400px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.reminder-text {
-  font-size: 1rem;
-  color: #000000;
-}
-
-.reminder-date {
+.input-group label {
   font-size: 0.85rem;
-  color: gray;
-  margin-top: 0.3rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.input-group input {
+  padding: 0.7rem;
+  border: 1px solid #dce4ec;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #005B97;
+}
+
+.full-width {
+  grid-column: 1 / -1; /* El campo de texto ocupa toda la fila superior */
+}
+
+/* Botón Agendar */
+.btn-agendar {
+  background-color: #005B97;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn-agendar:hover {
+  background-color: #004471;
+  transform: translateY(-1px);
+}
+
+/* Grid de Recordatorios (Cards) */
+.reminders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.reminder-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  position: relative;
+  transition: transform 0.2s;
+  border: 1px solid transparent;
+}
+
+.reminder-card:hover {
+  transform: translateY(-3px);
+  border-color: #005B97;
+}
+
+.reminder-tag {
+  width: 5px;
+  height: 40px;
+  border-radius: 10px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.reminder-body {
+  flex: 1;
+  text-align: left;
+}
+
+.reminder-title {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1a1a1a;
+  margin-bottom: 0.4rem;
+}
+
+.reminder-meta {
+  font-size: 0.8rem;
+  color: #777;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot { font-weight: bold; color: #ccc; }
+
+/* Botón eliminar sutil */
+.btn-delete-subtle {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s;
+}
+
+.btn-delete-subtle:hover {
+  color: #ff4d4d;
 }
 
 /* Página de estadísticas */
@@ -453,137 +544,318 @@ a:hover {
 
 /* Página de metas */
 .goals-page {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 2rem auto;
-  padding: 1rem;
-  text-align: center;
+  padding: 0 1.5rem;
 }
 
 .goals-page h2 {
-  margin-bottom: 1rem;
-  color: #005B97; /* azul primario */
+  color: #005B97;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  text-align: left; /* Alineado a la izquierda para look profesional */
 }
 
-/* Formulario de metas */
-.goal-form {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
+.subtitle {
+  text-align: left;
+  color: #666;
   margin-bottom: 2rem;
 }
 
-.goal-form input {
-  padding: 0.5rem;
-  font-size: 0.9rem;
+/* Contenedor del Formulario (Ahora más robusto) */
+.goal-form-container {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  border: 1px solid #eef2f6;
 }
 
-.goal-form button {
-  background-color: #005B97; /* azul primario */
+.goal-grid-form {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 150px;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.goal-grid-form input {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 0.95rem;
+  border: 1px solid #dce4ec;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+}
+
+.goal-grid-form input:focus {
+  outline: none;
+  border-color: #005B97;
+}
+
+.btn-add-goal {
+  background-color: #005B97;
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-.goal-form button:hover {
-  background-color: #79A8E8; /* azul claro */
+.btn-add-goal:hover {
+  background-color: #004471;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 91, 151, 0.2);
 }
 
-/* Lista de metas */
-.goals-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+/* Cuadrícula de Metas */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 .goal-card {
   background: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  width: 280px;
-  text-align: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, border-color 0.3s;
+}
+
+.goal-card:hover {
+  transform: translateY(-5px);
+  border-color: #79A8E8;
+}
+
+.goal-card.goal-completed {
+  border: 2px solid #27ae60;
+  background-color: #fafffb;
+}
+
+.goal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .goal-card h3 {
-  margin-bottom: 0.5rem;
-  color: #005B97; /* azul primario */
+  font-size: 1.1rem;
+  color: #005B97;
+  margin: 0;
 }
 
-/* Barra de progreso */
-.progress-bar {
-  background: #79A8E8; /* azul claro */
-  border-radius: 6px;
-  overflow: hidden;
-  height: 12px;
+/* Barra de progreso optimizada */
+.progress-section {
   margin: 0.5rem 0;
 }
 
-.progress {
-  background: #005B97; /* azul primario */
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.progress-bar-bg {
+  background: #eef2f6;
+  border-radius: 10px;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: linear-gradient(90deg, #005B97, #79A8E8);
   height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Footer y Botón Incrementar */
+.goal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.goal-deadline {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.btn-increment {
+  background: #005B97;
+  color: white;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-increment:hover {
+  background: #79A8E8;
+  transform: scale(1.1);
+}
+
+/* Página de Equipos */
 .teams-page {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 2rem auto;
-  padding: 1rem;
-  text-align: center;
+  padding: 0 1.5rem;
 }
 
-.team-card {
-  background: #fff;
-  padding: 1rem;
+.badge-enterprise {
+  background: #005B97;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Formulario de Creación */
+.create-team-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  border-left: 5px solid #005B97;
+}
+
+.create-team-form {
+  display: flex;
+  gap: 15px;
+}
+
+.create-team-form input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid #dce4ec;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 1rem;
+}
+
+/* Grid de Equipos */
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 1.5rem;
+}
+
+.team-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  height: fit-content;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f8f9fa;
+  padding-bottom: 10px;
 }
 
-.team-card h3 {
-  color: #005B97; /* azul primario */
-  margin-bottom: 0.5rem;
+.btn-circle-add {
+  background: #005B97;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
-.team-card ul {
+/* Tabla de Miembros */
+.members-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0 10px 10px 10px;
+}
+
+.member-list {
   list-style: none;
   padding: 0;
 }
 
-.team-card li {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  border-bottom: 1px solid #ccc;
+.member-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 12px 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
 }
 
-.member-actions {
+.member-row:hover {
+  background: #f8fbff;
+}
+
+.member-info {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 0.3rem;
+  flex-direction: column;
+  text-align: left;
 }
 
-.member-actions button {
-  padding: 0.3rem 0.6rem;
+.m-name { font-weight: 600; color: #333; font-size: 0.95rem; }
+.m-role { font-size: 0.75rem; color: #005B97; font-weight: bold; }
+
+/* Status Pills */
+.status-pill {
+  padding: 4px 10px;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  font-weight: bold;
 }
+.status-pill.active { background: #e3f9e5; color: #27ae60; }
+.status-pill.inactive { background: #feecef; color: #eb5757; }
 
-.member-actions button:hover {
-  opacity: 0.9;
-}
-.member-actions .btn-desactivar {
-  background-color: #28E302; /* azul corporativo */
-  color: black;
+/* Botones de acción pequeños */
+.btn-action-small {
   border: none;
-  padding: 0.4rem 0.8rem;
+  background: #f1f3f5;
+  padding: 5px 8px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  margin-right: 5px;
+  transition: all 0.2s;
+}
+
+.btn-pause:hover { background: #fff4e6; color: #f08c00; }
+.btn-resume:hover { background: #e3f9e5; color: #27ae60; }
+.btn-delete:hover { background: #feecef; color: #e03131; }
+
+.empty-members-box {
+  padding: 2rem;
+  color: #adb5bd;
+  font-style: italic;
+  font-size: 0.9rem;
 }
 
 .reports-page {
@@ -659,90 +931,162 @@ a:hover {
   gap: 40px; /* Separa automáticamente cada bloque hijo (Header, Selector, Form, Grid) */
 }
 
-/* Título principal */
-.activities-page h2 {
-  margin-bottom: 10px;
-  text-align: center;
+/* Página de Actividades */
+.activities-page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
 }
 
-/* El cuadro blanco del selector de equipo */
+/* Selector de equipo: Más compacto y centrado */
 .selector-container {
-  margin-bottom: 20px; /* Espacio extra debajo del selector */
-}
-
-/* El formulario de asignación */
-.activity-form-container {
-  margin-top: 20px;
-  margin-bottom: 40px; /* Separa el formulario del tablero de tarjetas */
-  padding: 30px; /* Más aire interno */
-}
-
-/* Separación interna de los inputs del formulario */
-.form-inputs {
   display: flex;
-  gap: 25px; /* Más separación entre el input de texto y el selector de miembros */
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.selector-group {
+  background: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 500px; /* Evita que el selector se estire al infinito */
+}
+
+/* Formulario de Asignación: Fila única y profesional */
+.activity-form-container {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  border: 1px solid #eef2f6;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.form-inputs {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 140px; /* Proporciones fijas */
+  gap: 15px;
   align-items: flex-end;
 }
 
-/* El tablero donde están las tarjetas */
-.activity-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px; /* Más espacio entre tarjetas */
-  margin-top: 20px;
-}
-
-.activity-card {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  width: 280px;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   text-align: left;
 }
 
-.activity-card h3 {
-  margin-bottom: 0.5rem;
-  color: #005B97;
+.input-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
 }
 
-.activity-card p {
-  margin: 0.3rem 0;
-  color: #000000;
+.input-group input, .input-group select {
+  padding: 0.7rem;
+  border: 1px solid #dce4ec;
+  border-radius: 6px;
+  font-size: 0.9rem;
 }
 
-/* Estados con colores corporativos */
-.activity-card.pendiente {
-  border-left: 6px solid #F7DC4F; /* amarillo */
+.btn-add-activity {
+  background-color: #005B97;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.activity-card.en {
-  border-left: 6px solid #79A8E8; /* azul claro */
+.btn-add-activity:hover:not(:disabled) {
+  background-color: #004471;
 }
 
-.activity-card.completada {
-  border-left: 6px solid #009E49; /* verde */
+/* El Tablero (Grid) */
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
-.activity-actions {
-  margin-top: 0.5rem;
+/* Tarjeta de actividad: Sin ancho fijo para que fluya en el grid */
+.activity-card {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  border-left: 6px solid #ccc; /* Default */
+  transition: transform 0.2s;
+}
+
+.activity-card:hover {
+  transform: translateY(-3px);
+}
+
+.activity-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.activity-info p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Estados */
+.activity-card.pendiente { border-left-color: #F7DC4F; }
+.activity-card.en-progreso { border-left-color: #79A8E8; }
+
+/* Botones de acción */
+.activity-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 10px;
 }
 
 .activity-actions button {
-  padding: 0.3rem 0.6rem;
+  flex: 1;
+  padding: 5px;
   border-radius: 4px;
-  border: none;
+  border: 1px solid #005B97;
+  background: transparent;
+  color: #005B97;
+  font-size: 0.75rem;
   cursor: pointer;
-  font-size: 0.8rem;
-  background-color: #005B97;
+  transition: all 0.2s;
+}
+
+.activity-actions button.active {
+  background: #005B97;
   color: white;
 }
 
-.activity-actions button:hover {
-  background-color: #79A8E8;
+.activity-actions .btn-complete {
+  border-color: #27ae60;
+  color: #27ae60;
 }
+
+.activity-actions .btn-complete:hover {
+  background: #27ae60;
+  color: white;
+}
+
+
 /* Contenedor principal del selector */
 .selector-container {
   display: flex;
