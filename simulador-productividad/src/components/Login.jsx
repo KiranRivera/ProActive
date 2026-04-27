@@ -4,8 +4,8 @@ import axios from "axios";
 import "../styles/global.css";
 
 // 1. CONFIGURACIÓN DE LA URL DINÁMICA
-const API_BASE = process.env.REACT_APP_API_URL 
-  ? `${process.env.REACT_APP_API_URL}/auth` 
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/auth` 
   : "http://localhost:3001/api/auth";
 
 function Login() {

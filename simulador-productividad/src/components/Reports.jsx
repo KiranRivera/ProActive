@@ -16,8 +16,8 @@ import "../styles/global.css";
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 // 1. CONFIGURACIÓN DE LA URL DINÁMICA
-const API_BASE = process.env.REACT_APP_API_URL 
-  ? `${process.env.REACT_APP_API_URL}/business` 
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/business` 
   : "http://localhost:3001/api/business";
 
 function Reports() {

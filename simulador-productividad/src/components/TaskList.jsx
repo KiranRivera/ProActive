@@ -4,8 +4,8 @@ import axios from "axios";
 import "../styles/global.css";
 
 // 1. CONFIGURACIÓN DE LA URL DINÁMICA
-const API_URL = process.env.REACT_APP_API_URL 
-  ? `${process.env.REACT_APP_API_URL}/tasks` 
+const API_URL = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/tasks` 
   : "http://localhost:3001/api/tasks";
 
 function TaskList() {

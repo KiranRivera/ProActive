@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import { useEffect } from "react";
 import Login from "./components/Login";
 import TaskList from "./components/TaskList";
 import Header from "./components/Header";
@@ -12,22 +13,35 @@ import Reports from "./components/Reports";
 import ActivityControl from "./components/ActivityControl";
 import Register from "./components/Register";
 
-// 1. Creamos un componente Layout que envuelve las páginas que SÍ llevan Header
+// 1. Configuración de la API para Vite
+// Usamos import.meta.env en lugar de process.env
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+
 const AppLayout = () => (
   <>
     <Header />
-    <Outlet /> {/* Aquí se renderizarán las rutas hijas */}
+    <Outlet /> 
   </>
 );
 
 function App() {
+  
+  // Bloque de depuración: Verás esto en la consola (F12) al cargar la app
+  useEffect(() => {
+    console.log("🚀 ProActive inicializado");
+    console.log("📡 Conectando a la API en:", API_BASE);
+    
+    if (!import.meta.env.VITE_API_URL && window.location.hostname !== 'localhost') {
+      console.warn("⚠️ Advertencia: VITE_API_URL no está definida en el entorno de producción.");
+    }
+  }, []);
+
   return (
     <Router>
       <Routes>
-        {/* RUTA SIN HEADER: El Login es independiente */}
+        {/* RUTA SIN HEADER: El Login y Registro son independientes */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
 
         {/* RUTAS CON HEADER: Todas estas pasan por el AppLayout */}
         <Route element={<AppLayout />}>

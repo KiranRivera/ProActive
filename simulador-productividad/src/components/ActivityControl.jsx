@@ -4,8 +4,8 @@ import axios from "axios"; // O puedes usar tu archivo api/axiosConfig si ya lo 
 import "../styles/global.css";
 
 // 1. URL DINÁMICA: Usamos la de Render en producción o localhost en desarrollo
-const API_BASE = process.env.REACT_APP_API_URL 
-  ? `${process.env.REACT_APP_API_URL}/business` 
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/business` 
   : "http://localhost:3001/api/business";
 
 function ActivityControl() {

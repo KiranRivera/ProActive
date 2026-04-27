@@ -5,8 +5,8 @@ import "../styles/global.css";
 
 // 1. CONFIGURACIÓN DE LA URL DINÁMICA
 // Prioriza la variable de entorno REACT_APP_API_URL definida en tu .env
-const API_BASE_URL = process.env.REACT_APP_API_URL 
-  ? `${process.env.REACT_APP_API_URL}/calendar` 
+const API_BASE_URL = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/calendar` 
   : "http://localhost:3001/api/calendar";
 
 function Calendar() {
