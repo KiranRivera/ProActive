@@ -733,7 +733,7 @@ a:hover {
     position: relative;
   }
 
-  /* 2. Ajuste del Header (Si este archivo afecta al header) */
+  /* 2. Ajuste del Header */
   .header {
     flex-direction: column !important;
     padding: 1.5rem 1rem !important;
@@ -748,11 +748,11 @@ a:hover {
   }
 
   /* 3. Ajuste de las Páginas */
-  .activities-page, .task-page, .notes-page, .reminders-page, .goals-page {
+  .activities-page, .task-page, .notes-page, .reminders-page, .goals-page, .calendar-page {
     width: 100% !important;
     padding: 1rem !important;
     margin: 0 auto !important;
-    box-sizing: border-box !important; /* Fundamental para que el padding no ensanche */
+    box-sizing: border-box !important;
   }
 
   /* 4. Arreglo de las Tarjetas */
@@ -764,7 +764,7 @@ a:hover {
   }
 
   .activity-card, .task-item, .note-item, .goal-card {
-    width: 100% !important; /* Ocupa el ancho disponible */
+    width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     margin: 0 auto !important;
@@ -787,16 +787,15 @@ a:hover {
     box-sizing: border-box !important;
   }
 
-  /* Forzamos a que TODOS los inputs respeten el ancho de la pantalla */
   .task-form input, 
   .note-form input, 
   .note-form textarea,
   .reminder-form input,
   .goal-form input,
   select {
-    width: 100% !important; /* Toma el ancho del contenedor padre */
+    width: 100% !important;
     max-width: 100% !important;
-    box-sizing: border-box !important; /* El padding se cuenta HACIA ADENTRO */
+    box-sizing: border-box !important;
     margin: 0.5rem 0 !important;
   }
 
@@ -810,5 +809,32 @@ a:hover {
     display: block !important;
     overflow-x: auto !important;
     width: 100% !important;
+  }
+
+  /* 8. CORRECCIÓN DEL CALENDARIO (Para que no se aplaste) */
+  .calendar-grid {
+    display: flex !important; /* Cambiamos a fila para scroll lateral */
+    overflow-x: auto !important;
+    gap: 0.5rem !important;
+    padding-bottom: 1rem !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .calendar-day {
+    min-width: 100px !important; /* Ancho fijo mínimo por día */
+    height: 110px !important;
+    flex-shrink: 0 !important; /* Evita que se encojan */
+    padding: 0.5rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .day-number {
+    font-size: 0.85rem !important;
+  }
+
+  .event, .reminder {
+    font-size: 0.7rem !important;
+    white-space: normal !important; /* Permite que el texto baje de línea */
+    padding: 2px 4px !important;
   }
 }
