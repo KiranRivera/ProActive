@@ -722,3 +722,60 @@ a:hover {
   margin-top: 1.5rem;
   font-size: 0.9rem;
 }
+/* --- SECCIÓN RESPONSIVA (Añadir al final) --- */
+
+@media (max-width: 768px) {
+  /* 1. Ajuste de contenedores principales */
+  .task-page, .calendar-page, .notes-page, .reminders-page, 
+  .statistics-page, .goals-page, .teams-page, .reports-page, .activities-page {
+    width: 95%;
+    margin: 1rem auto;
+  }
+
+  /* 2. Header: de horizontal a vertical */
+  .header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  /* 3. Formularios: que los elementos se apilen */
+  .task-form, .reminder-form, .goal-form, .note-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Forzar que inputs y textareas que tenían ancho fijo ahora sean 100% */
+  .note-form input, .note-form textarea, 
+  .reminder-form input[type="text"], 
+  .reminder-item, .kpi-card, .stat-card, .chart-card {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  /* 4. Grids: pasar a una sola columna */
+  .task-list, .calendar-grid, .notes-list, .goals-list, .activity-grid {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 5. Tablas y Calendario: permitir scroll para no romper el diseño */
+  .report-table, .calendar-grid {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* 6. Login: ajustar ancho de la tarjeta */
+  .container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
