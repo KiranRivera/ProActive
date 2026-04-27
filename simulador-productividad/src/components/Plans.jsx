@@ -43,14 +43,14 @@ function Plans() {
         { 
             id: "basico", 
             nombre: "Básico", 
-            precio: "Gratis", 
+            precio: "$50/mes", 
             clase: "plan-basico-card",
             beneficios: ["Tareas", "Calendario", "Notas"]
         },
         { 
             id: "premium", 
             nombre: "Premium", 
-            precio: "$9.99/mes", 
+            precio: "$80/mes", 
             clase: "plan-premium-card", 
             destacado: true,
             beneficios: ["Todo lo del plan Básico", "Recordatorios", "Estadísticas", "Metas"]
@@ -58,7 +58,7 @@ function Plans() {
         { 
             id: "empresarial", 
             nombre: "Empresarial", 
-            precio: "$24.99/mes", 
+            precio: "$120/mes", 
             clase: "plan-business-card",
             beneficios: ["Todo lo del plan Premium", "Equipos", "Reportes por equipo", "Actividades por equipo"]
         }
