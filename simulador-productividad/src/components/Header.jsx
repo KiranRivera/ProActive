@@ -11,12 +11,25 @@ function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
+  const loadUserData = () => {
     const storedName = localStorage.getItem("userName");
     const storedPlan = localStorage.getItem("userPlan");
     
     if (storedName) setUserName(storedName);
     if (storedPlan) setUserPlan(storedPlan.toLowerCase());
-  }, []);
+  };
+
+  // Carga inicial
+  loadUserData();
+
+  // Escuchar el evento personalizado
+  window.addEventListener("planUpdated", loadUserData);
+
+  // Limpiar el evento al desmontar
+  return () => {
+    window.removeEventListener("planUpdated", loadUserData);
+  };
+}, []);
 
   const handleLogout = () => {
     localStorage.clear();
