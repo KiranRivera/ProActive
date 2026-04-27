@@ -722,60 +722,87 @@ a:hover {
   margin-top: 1.5rem;
   font-size: 0.9rem;
 }
-/* --- SECCIÓN RESPONSIVA (Añadir al final) --- */
 
+/* --- SECCIÓN RESPONSIVA PARA MÓVILES Y TABLETS --- */
 @media (max-width: 768px) {
-  /* 1. Ajuste de contenedores principales */
-  .task-page, .calendar-page, .notes-page, .reminders-page, 
-  .statistics-page, .goals-page, .teams-page, .reports-page, .activities-page {
-    width: 95%;
-    margin: 1rem auto;
+  
+  /* 1. Evitar el desbordamiento lateral */
+  body {
+    overflow-x: hidden;
+    width: 100%;
   }
 
-  /* 2. Header: de horizontal a vertical */
+  /* 2. Ajuste del Header (Menú) para que no se amontone */
   .header {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    flex-direction: column !important;
+    padding: 1.5rem 1rem !important;
+    height: auto !important;
+  }
+
+  .header h1 {
+    margin-bottom: 1rem;
   }
 
   .nav ul {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.8rem !important;
+    width: 100%;
   }
 
-  /* 3. Formularios: que los elementos se apilen */
-  .task-form, .reminder-form, .goal-form, .note-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  /* Forzar que inputs y textareas que tenían ancho fijo ahora sean 100% */
-  .note-form input, .note-form textarea, 
-  .reminder-form input[type="text"], 
-  .reminder-item, .kpi-card, .stat-card, .chart-card {
+  /* 3. Ajuste de las Páginas */
+  .activities-page, .task-page, .notes-page, .reminders-page, .goals-page {
     width: 100% !important;
-    max-width: 100%;
+    padding: 1rem !important;
+    margin: 0 auto !important;
   }
 
-  /* 4. Grids: pasar a una sola columna */
-  .task-list, .calendar-grid, .notes-list, .goals-list, .activity-grid {
-    grid-template-columns: 1fr;
-    display: flex;
-    flex-direction: column;
+  /* 4. Arreglo de las Tarjetas (Activity Card) */
+  .activity-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
   }
 
-  /* 5. Tablas y Calendario: permitir scroll para no romper el diseño */
-  .report-table, .calendar-grid {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+  .activity-card {
+    width: 95% !important; /* Para que casi toque los bordes pero con aire */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
   }
 
-  /* 6. Login: ajustar ancho de la tarjeta */
-  .container {
-    width: 90%;
-    padding: 1.5rem;
+  /* 5. Botones de Acción (Pendiente, En progreso, etc.) */
+  .activity-actions {
+    display: flex !important;
+    flex-wrap: wrap !important; /* Hace que los botones bajen si no caben */
+    gap: 8px !important;
+    justify-content: center !important;
+    margin-top: 1rem !important;
+  }
+
+  .activity-actions button {
+    flex: 1 1 calc(50% - 10px); /* Dos botones por fila en pantallas pequeñas */
+    min-width: 120px;
+    padding: 12px 8px !important; /* Más grandes para dedos */
+    font-size: 0.85rem !important;
+  }
+
+  /* 6. Formularios (Tareas, Notas, etc.) */
+  .task-form, .note-form, .reminder-form, .goal-form {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .task-form input, .note-form input, .note-form textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 7. Tablas de Reportes */
+  .report-table {
+    display: block !important;
+    overflow-x: auto !important; /* Permite deslizar la tabla si es muy ancha */
+    width: 100% !important;
   }
 }
