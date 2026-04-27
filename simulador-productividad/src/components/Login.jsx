@@ -46,8 +46,7 @@ function Login() {
   return (
     <div className="login-wrapper">
       <div className="container">
-        <h2 className="login-title">ProActive Cloud</h2>
-        <p className="login-subtitle">Inicia sesión para sincronizar tus datos</p>
+        <h2 className="login-title">ProActive</h2>
         
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">

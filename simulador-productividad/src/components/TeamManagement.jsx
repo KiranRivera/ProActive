@@ -107,7 +107,6 @@ function TeamManagement() {
     <div className="teams-page">
       <div className="header-flex">
         <h2>Administración de Equipos</h2>
-        <span className="badge-plan-active empres">Módulo Business</span>
       </div>
 
       <div className="team-card shadow-sm">

@@ -114,7 +114,6 @@ function ActivityControl() {
     <div className="activities-page">
       <div className="header-flex">
         <h2>Control de Actividades</h2>
-        <span className="badge-plan-active">Business Console</span>
       </div>
 
       <div className="selector-container">

@@ -87,7 +87,6 @@ function TaskList() {
     <div className="task-page">
       <div className="header-flex">
         <h2>Mis Tareas</h2>
-        <span className="sync-badge">Sincronizado</span>
       </div>
 
       <form className="task-form shadow-sm" onSubmit={addTask}>

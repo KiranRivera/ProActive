@@ -103,7 +103,7 @@ function Notes() {
           required
         />
         <button type="submit" className="btn-add-note">
-          Guardar en la nube
+          Agregar
         </button>
       </form>
 

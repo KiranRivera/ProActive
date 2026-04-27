@@ -98,7 +98,6 @@ function Goals() {
     <div className="goals-page">
       <div className="goals-header">
         <h2>Mis Metas</h2>
-        <span className="sync-status">Respaldado en la nube</span>
       </div>
 
       <form className="goal-form" onSubmit={handleAddGoal}>

@@ -90,7 +90,6 @@ function Reminders() {
     <div className="reminders-page">
       <div className="header-flex">
         <h2>Recordatorios</h2>
-        <span className="badge-premium">Premium Feature</span>
       </div>
 
       <form className="reminder-form shadow-sm" onSubmit={addReminder}>

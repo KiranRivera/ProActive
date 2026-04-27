@@ -97,7 +97,6 @@ function Calendar() {
             Agenda personal de: <strong>{userName}</strong>
           </p>
         </div>
-        <div className="sync-badge">Conectado a la nube</div>
       </div>
 
       <div className="calendar-grid">

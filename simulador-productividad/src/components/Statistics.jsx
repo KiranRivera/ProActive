@@ -120,7 +120,6 @@ function Statistics() {
           <h2>Mi Rendimiento</h2>
           <p className="subtitle">Visualiza tus logros de la semana</p>
         </div>
-        <span className="badge-plan-premium">Plan Premium Activo</span>
       </div>
 
       <div className="kpi-grid">
