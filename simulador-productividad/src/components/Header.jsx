@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/header.css";
 import logo from "../assets/logo.jpeg";
-import profilePic from "../assets/logo.jpeg"; // tu imagen de perfil
+import profilePic from "../assets/Profile.jpeg"; // tu imagen de perfil
 
 function Header() {
   return (
