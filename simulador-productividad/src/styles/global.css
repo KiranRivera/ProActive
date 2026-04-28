@@ -1,14 +1,22 @@
+:root {
+  /* Esto le dice al navegador: "Esta página solo se ve bien en modo claro",
+     lo que frena la mayoría de los cambios automáticos de texto blanco. */
+  color-scheme: light !important; 
+}
 /* Fondo general */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #79A8E8; /* azul claro */
-  color: #000000; /* negro */
+  background-color: #79A8E8;
+  /* azul claro */
+  color: #000000;
+  /* negro */
 }
 
 /* Header */
 .header {
-  background-color: #005B97; /* azul primario */
+  background-color: #005B97;
+  /* azul primario */
   color: white;
   padding: 1rem 2rem;
   display: flex;
@@ -30,14 +38,16 @@ body {
 }
 
 .nav a {
-  color: #F7DC4F; /* amarillo */
+  color: #F7DC4F;
+  /* amarillo */
   text-decoration: none;
   font-weight: 500;
 }
 
 .nav a:hover {
   text-decoration: underline;
-  color: #F7CC27; /* amarillo intenso */
+  color: #F7CC27;
+  /* amarillo intenso */
 }
 
 /* Página de tareas */
@@ -63,7 +73,8 @@ section {
 
 section h3 {
   margin-bottom: 0.5rem;
-  color: #005B97; /* azul primario */
+  color: #005B97;
+  /* azul primario */
   font-size: 1.2rem;
 }
 
@@ -77,7 +88,7 @@ section h3 {
   background: #fff;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -97,7 +108,8 @@ section h3 {
 }
 
 /* Inputs */
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 0.7rem;
   border: 1px solid #ccc;
@@ -107,7 +119,8 @@ input, textarea {
 
 /* Botones */
 button {
-  background-color: #005B97; /* azul primario */
+  background-color: #005B97;
+  /* azul primario */
   color: white;
   border: none;
   padding: 0.7rem 1.2rem;
@@ -117,12 +130,15 @@ button {
 }
 
 button:hover {
-  background-color: #79A8E8; /* azul claro */
+  background-color: #79A8E8;
+  /* azul claro */
 }
 
 button.delete {
-  background: #F7CC27; /* amarillo intenso */
-  color: #000000; /* negro */
+  background: #F7CC27;
+  /* amarillo intenso */
+  color: #000000;
+  /* negro */
   border: none;
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
@@ -130,18 +146,21 @@ button.delete {
 }
 
 button.delete:hover {
-  background: #F7DC4F; /* amarillo suave */
+  background: #F7DC4F;
+  /* amarillo suave */
 }
 
 /* Links */
 a {
-  color: #005B97; /* azul primario */
+  color: #005B97;
+  /* azul primario */
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
-  color: #79A8E8; /* azul claro */
+  color: #79A8E8;
+  /* azul claro */
 }
 
 /* Página de calendario */
@@ -162,7 +181,8 @@ a:hover {
 /* Grid del calendario */
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días */
+  grid-template-columns: repeat(7, 1fr);
+  /* 7 columnas para los días */
   gap: 12px;
   width: 100%;
 }
@@ -172,10 +192,10 @@ a:hover {
 .calendar-day {
   background: #ffffff;
   /* Esto asegura que la celda sea siempre cuadrada o mantenga una proporción */
-  aspect-ratio: 1 / 1; 
+  aspect-ratio: 1 / 1;
   /* Si aspect-ratio no es suficiente, min-height asegura que no se colapse */
-  min-height: 120px; 
-  
+  min-height: 120px;
+
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
@@ -193,7 +213,8 @@ a:hover {
   grid-template-columns: repeat(7, 1fr);
   gap: 12px;
   width: 100%;
-  align-items: start; /* Evita que las celdas se estiren verticalmente de forma desigual */
+  align-items: start;
+  /* Evita que las celdas se estiren verticalmente de forma desigual */
 }
 
 /* Número del día */
@@ -203,7 +224,7 @@ a:hover {
   color: #333;
   margin-bottom: 8px;
   /* Asegura que el número siempre ocupe su lugar arriba */
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 /* Contenedor de eventos */
@@ -211,7 +232,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex-grow: 1; /* Ocupa el espacio sobrante */
+  flex-grow: 1;
+  /* Ocupa el espacio sobrante */
   overflow-y: auto;
   padding-right: 2px;
 }
@@ -225,15 +247,19 @@ a:hover {
   border-radius: 4px;
   font-size: 0.75rem;
   margin-bottom: 2px;
-  min-height: 24px; /* Altura mínima para el renglón del evento */
+  min-height: 24px;
+  /* Altura mínima para el renglón del evento */
 }
 
 /* El texto dentro de los eventos */
 .event-item p {
   margin: 0;
-  white-space: nowrap;     /* No salta de línea */
-  overflow: hidden;        /* Oculta lo que sobra */
-  text-overflow: ellipsis; /* Pone los "..." */
+  white-space: nowrap;
+  /* No salta de línea */
+  overflow: hidden;
+  /* Oculta lo que sobra */
+  text-overflow: ellipsis;
+  /* Pone los "..." */
   flex-grow: 1;
 }
 
@@ -315,7 +341,7 @@ a:hover {
   background: #fff;
   padding: 0.8rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 220px;
   flex-shrink: 0;
   text-align: left;
@@ -335,7 +361,8 @@ a:hover {
 
 /* Página de recordatorios */
 .reminders-page {
-  max-width: 900px; /* Un poco más ancho para el grid */
+  max-width: 900px;
+  /* Un poco más ancho para el grid */
   margin: 2rem auto;
   padding: 0 1.5rem;
 }
@@ -363,9 +390,11 @@ a:hover {
 
 .reminder-grid-form {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 0.8fr 120px; /* Reparto proporcional */
+  grid-template-columns: 1.5fr 1fr 0.8fr 120px;
+  /* Reparto proporcional */
   gap: 15px;
-  align-items: end; /* Alinea etiquetas y campos a la base */
+  align-items: end;
+  /* Alinea etiquetas y campos a la base */
 }
 
 /* Manejo de inputs y grupos */
@@ -396,7 +425,8 @@ a:hover {
 }
 
 .full-width {
-  grid-column: 1 / -1; /* El campo de texto ocupa toda la fila superior */
+  grid-column: 1 / -1;
+  /* El campo de texto ocupa toda la fila superior */
 }
 
 /* Botón Agendar */
@@ -429,7 +459,7 @@ a:hover {
   border-radius: 10px;
   display: flex;
   align-items: flex-start;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: relative;
   transition: transform 0.2s;
   border: 1px solid transparent;
@@ -469,7 +499,10 @@ a:hover {
   align-items: center;
 }
 
-.dot { font-weight: bold; color: #ccc; }
+.dot {
+  font-weight: bold;
+  color: #ccc;
+}
 
 /* Botón eliminar sutil */
 .btn-delete-subtle {
@@ -513,9 +546,10 @@ a:hover {
   background: #fff;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-weight: bold;
-  color: #005B97; /* azul primario */
+  color: #005B97;
+  /* azul primario */
   min-width: 180px;
   text-align: center;
 }
@@ -532,14 +566,15 @@ a:hover {
   background: #fff;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 300px;
   text-align: center;
 }
 
 .stat-card h3 {
   margin-bottom: 0.5rem;
-  color: #005B97; /* azul primario */
+  color: #005B97;
+  /* azul primario */
 }
 
 /* Página de metas */
@@ -553,7 +588,8 @@ a:hover {
   color: #005B97;
   margin-bottom: 0.5rem;
   font-size: 1.8rem;
-  text-align: left; /* Alineado a la izquierda para look profesional */
+  text-align: left;
+  /* Alineado a la izquierda para look profesional */
 }
 
 .subtitle {
@@ -620,7 +656,7 @@ a:hover {
   background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -764,7 +800,7 @@ a:hover {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   height: fit-content;
 }
 
@@ -823,8 +859,17 @@ a:hover {
   text-align: left;
 }
 
-.m-name { font-weight: 600; color: #333; font-size: 0.95rem; }
-.m-role { font-size: 0.75rem; color: #005B97; font-weight: bold; }
+.m-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.m-role {
+  font-size: 0.75rem;
+  color: #005B97;
+  font-weight: bold;
+}
 
 /* Status Pills */
 .status-pill {
@@ -833,8 +878,16 @@ a:hover {
   font-size: 0.7rem;
   font-weight: bold;
 }
-.status-pill.active { background: #e3f9e5; color: #27ae60; }
-.status-pill.inactive { background: #feecef; color: #eb5757; }
+
+.status-pill.active {
+  background: #e3f9e5;
+  color: #27ae60;
+}
+
+.status-pill.inactive {
+  background: #feecef;
+  color: #eb5757;
+}
 
 /* Botones de acción pequeños */
 .btn-action-small {
@@ -847,9 +900,20 @@ a:hover {
   transition: all 0.2s;
 }
 
-.btn-pause:hover { background: #fff4e6; color: #f08c00; }
-.btn-resume:hover { background: #e3f9e5; color: #27ae60; }
-.btn-delete:hover { background: #feecef; color: #e03131; }
+.btn-pause:hover {
+  background: #fff4e6;
+  color: #f08c00;
+}
+
+.btn-resume:hover {
+  background: #e3f9e5;
+  color: #27ae60;
+}
+
+.btn-delete:hover {
+  background: #feecef;
+  color: #e03131;
+}
 
 .empty-members-box {
   padding: 2rem;
@@ -867,43 +931,50 @@ a:hover {
 
 .reports-page h2 {
   margin-bottom: 1rem;
-  color: #005B97; /* azul primario */
+  color: #005B97;
+  /* azul primario */
 }
 
 .report-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
-  background: #f0f8ff; /* azul muy claro que combina con el fondo */
+  background: #f0f8ff;
+  /* azul muy claro que combina con el fondo */
 }
 
-.report-table th, .report-table td {
+.report-table th,
+.report-table td {
   border: 1px solid #ccc;
   padding: 0.6rem;
   text-align: center;
-  
+
 }
 
 .report-table th {
-  background:#3CD413; /* azul primario */
+  background: #3CD413;
+  /* azul primario */
   color: black;
 }
+
 .report-table tbody tr {
-  background-color: #E8FDE9; /* Verde pastel muy suave */
+  background-color: #E8FDE9;
+  /* Verde pastel muy suave */
 }
 
 .report-summary {
   background: #f9f9f9;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: left;
   margin-bottom: 2rem;
 }
 
 .report-summary p {
   margin: 0.3rem 0;
-  color: #000000; /* negro */
+  color: #000000;
+  /* negro */
 }
 
 .report-charts {
@@ -917,18 +988,21 @@ a:hover {
   background: #fff;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 400px;
   text-align: center;
 }
+
 /* Contenedor principal para que no toque los bordes de la pantalla */
 .activities-page {
   padding: 40px 20px;
   max-width: 1200px;
-  margin: 0 auto; /* Centra todo el contenido */
+  margin: 0 auto;
+  /* Centra todo el contenido */
   display: flex;
   flex-direction: column;
-  gap: 40px; /* Separa automáticamente cada bloque hijo (Header, Selector, Form, Grid) */
+  gap: 40px;
+  /* Separa automáticamente cada bloque hijo (Header, Selector, Form, Grid) */
 }
 
 /* Página de Actividades */
@@ -949,12 +1023,13 @@ a:hover {
   background: white;
   padding: 1rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
-  max-width: 500px; /* Evita que el selector se estire al infinito */
+  max-width: 500px;
+  /* Evita que el selector se estire al infinito */
 }
 
 /* Formulario de Asignación: Fila única y profesional */
@@ -964,12 +1039,13 @@ a:hover {
   border-radius: 12px;
   margin-bottom: 2.5rem;
   border: 1px solid #eef2f6;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .form-inputs {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 140px; /* Proporciones fijas */
+  grid-template-columns: 1.5fr 1fr 140px;
+  /* Proporciones fijas */
   gap: 15px;
   align-items: flex-end;
 }
@@ -987,7 +1063,8 @@ a:hover {
   color: #666;
 }
 
-.input-group input, .input-group select {
+.input-group input,
+.input-group select {
   padding: 0.7rem;
   border: 1px solid #dce4ec;
   border-radius: 6px;
@@ -1021,12 +1098,13 @@ a:hover {
   background: #fff;
   padding: 1.2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 10px;
   text-align: left;
-  border-left: 6px solid #ccc; /* Default */
+  border-left: 6px solid #ccc;
+  /* Default */
   transition: transform 0.2s;
 }
 
@@ -1047,8 +1125,13 @@ a:hover {
 }
 
 /* Estados */
-.activity-card.pendiente { border-left-color: #F7DC4F; }
-.activity-card.en-progreso { border-left-color: #79A8E8; }
+.activity-card.pendiente {
+  border-left-color: #F7DC4F;
+}
+
+.activity-card.en-progreso {
+  border-left-color: #79A8E8;
+}
 
 /* Botones de acción */
 .activity-actions {
@@ -1128,7 +1211,8 @@ a:hover {
   border-radius: 8px;
   background-color: white;
   color: #212529;
-  appearance: none; /* Quita la flecha por defecto de Windows/Mac */
+  appearance: none;
+  /* Quita la flecha por defecto de Windows/Mac */
   cursor: pointer;
   transition: all 0.3s ease;
   outline: none;
@@ -1151,7 +1235,8 @@ a:hover {
   border-left: 2px solid #005B97;
   border-bottom: 2px solid #005B97;
   transform: translateY(-70%) rotate(-45deg);
-  pointer-events: none; /* Para que al hacer clic en la flecha se abra el select */
+  pointer-events: none;
+  /* Para que al hacer clic en la flecha se abra el select */
 }
 
 /* Estilo para las opciones (limitado por el navegador, pero ayuda) */
@@ -1165,7 +1250,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #79A8E8; 
+  background-color: #79A8E8;
   padding: 1.5rem;
   box-sizing: border-box;
 }
@@ -1174,7 +1259,8 @@ a:hover {
 .container {
   background-color: #ffffff;
   padding: 2.5rem;
-  border-radius: 20px; /* Bordes más suaves */
+  border-radius: 20px;
+  /* Bordes más suaves */
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 400px;
@@ -1187,7 +1273,8 @@ a:hover {
 }
 
 .login-logo {
-  width: 90px; /* Tamaño optimizado */
+  width: 90px;
+  /* Tamaño optimizado */
   height: auto;
   margin-bottom: 1rem;
   /* Sombra suave para que el logo resalte */
@@ -1206,7 +1293,8 @@ a:hover {
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* El espacio lo manejamos con el margin de los grupos */
+  gap: 0.5rem;
+  /* El espacio lo manejamos con el margin de los grupos */
 }
 
 .input-group {
@@ -1217,7 +1305,8 @@ a:hover {
 .input-group input {
   width: 100%;
   padding: 14px;
-  border: 2px solid #edf2f7; /* Gris muy suave */
+  border: 2px solid #edf2f7;
+  /* Gris muy suave */
   border-radius: 10px;
   font-size: 1rem;
   box-sizing: border-box;
@@ -1294,19 +1383,24 @@ a:hover {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
+
 /* Contenedor del menú desplegable */
 .profile-dropdown {
   position: absolute;
-  top: 110%; /* Aparece justo debajo de la sección de perfil */
+  top: 110%;
+  /* Aparece justo debajo de la sección de perfil */
   right: 0;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 0.5rem;
-  z-index: 2000; /* Por encima de todo */
+  z-index: 2000;
+  /* Por encima de todo */
   min-width: 150px;
 }
 
@@ -1316,7 +1410,8 @@ a:hover {
   padding: 10px;
   background: none;
   border: none;
-  color: #d9534f; /* Color rojo para indicar salida */
+  color: #d9534f;
+  /* Color rojo para indicar salida */
   font-weight: bold;
   text-align: center;
   cursor: pointer;
@@ -1331,9 +1426,12 @@ a:hover {
 
 
 :root {
-  --plan-basico: #79A8E8;   /* Azul claro */
-  --plan-premium: #FFD700;  /* Amarillo / Dorado */
-  --plan-business: #4CAF50; /* Verde */
+  --plan-basico: #79A8E8;
+  /* Azul claro */
+  --plan-premium: #FFD700;
+  /* Amarillo / Dorado */
+  --plan-business: #4CAF50;
+  /* Verde */
   --dark-blue: #005B97;
 }
 
@@ -1372,22 +1470,31 @@ a:hover {
   padding: 2.5rem;
   text-align: center;
   position: relative;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  border-top: 8px solid; /* El color del plan irá aquí */
+  border-top: 8px solid;
+  /* El color del plan irá aquí */
 }
 
 .plan-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Diferenciación por Colores */
-.plan-basico-card { border-top-color: var(--plan-basico); }
-.plan-premium-card { border-top-color: var(--plan-premium); }
-.plan-business-card { border-top-color: var(--plan-business); }
+.plan-basico-card {
+  border-top-color: var(--plan-basico);
+}
+
+.plan-premium-card {
+  border-top-color: var(--plan-premium);
+}
+
+.plan-business-card {
+  border-top-color: var(--plan-business);
+}
 
 .plan-nombre {
   font-size: 1.5rem;
@@ -1435,9 +1542,20 @@ a:hover {
 }
 
 /* Colores de botones según el plan */
-.plan-basico-card .btn-plan { background-color: var(--plan-basico); color: white; }
-.plan-premium-card .btn-plan { background-color: var(--plan-premium); color: #333; }
-.plan-business-card .btn-plan { background-color: var(--plan-business); color: white; }
+.plan-basico-card .btn-plan {
+  background-color: var(--plan-basico);
+  color: white;
+}
+
+.plan-premium-card .btn-plan {
+  background-color: var(--plan-premium);
+  color: #333;
+}
+
+.plan-business-card .btn-plan {
+  background-color: var(--plan-business);
+  color: white;
+}
 
 .btn-plan:hover {
   filter: brightness(0.9);
@@ -1468,9 +1586,10 @@ a:hover {
 
 /* --- SECCIÓN RESPONSIVA PARA MÓVILES Y TABLETS --- */
 @media (max-width: 768px) {
-  
+
   /* 1. Evitar el desbordamiento lateral */
-  html, body {
+  html,
+  body {
     overflow-x: hidden !important;
     width: 100% !important;
     position: relative;
@@ -1491,7 +1610,13 @@ a:hover {
   }
 
   /* 3. Ajuste de las Páginas */
-  .activities-page, .task-page, .notes-page, .reminders-page, .goals-page, .calendar-page, .reports-page {
+  .activities-page,
+  .task-page,
+  .notes-page,
+  .reminders-page,
+  .goals-page,
+  .calendar-page,
+  .reports-page {
     width: 100% !important;
     padding: 1rem !important;
     margin: 0 auto !important;
@@ -1499,14 +1624,19 @@ a:hover {
   }
 
   /* 4. Arreglo de las Tarjetas */
-  .activity-grid, .task-list, .notes-list {
+  .activity-grid,
+  .task-list,
+  .notes-list {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     gap: 1.2rem !important;
   }
 
-  .activity-card, .task-item, .note-item, .goal-card {
+  .activity-card,
+  .task-item,
+  .note-item,
+  .goal-card {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -1521,13 +1651,19 @@ a:hover {
   }
 
   /* 6. CORRECCIÓN DE FORMULARIOS */
-  .task-form, .note-form, .reminder-form, .goal-form {
+  .task-form,
+  .note-form,
+  .reminder-form,
+  .goal-form {
     flex-direction: column !important;
     width: 100% !important;
     align-items: center !important;
   }
 
-  .task-form input, .note-form input, .note-form textarea, select {
+  .task-form input,
+  .note-form input,
+  .note-form textarea,
+  select {
     width: 100% !important;
     box-sizing: border-box !important;
     margin: 0.5rem 0 !important;
@@ -1535,19 +1671,23 @@ a:hover {
 
   /* 7. REPORTE: Scroll horizontal para la tabla */
   .reports-page {
-    overflow-x: hidden !important; /* Evita que la página entera se mueva */
+    overflow-x: hidden !important;
+    /* Evita que la página entera se mueva */
   }
 
-  .report-table-container { 
+  .report-table-container {
     width: 100% !important;
-    overflow-x: auto !important; /* Activa el scroll horizontal */
+    overflow-x: auto !important;
+    /* Activa el scroll horizontal */
     -webkit-overflow-scrolling: touch;
     padding-bottom: 1rem;
   }
 
   .report-table {
-    display: table !important; /* Asegura que se comporte como tabla */
-    min-width: 600px !important; /* Forzamos un ancho mínimo para que no se aplaste */
+    display: table !important;
+    /* Asegura que se comporte como tabla */
+    min-width: 600px !important;
+    /* Forzamos un ancho mínimo para que no se aplaste */
     width: max-content !important;
   }
 
@@ -1559,9 +1699,11 @@ a:hover {
 
   .calendar-grid {
     display: grid !important;
-    grid-template-columns: repeat(7, 130px) !important; /* 7 columnas de 130px cada una */
+    grid-template-columns: repeat(7, 130px) !important;
+    /* 7 columnas de 130px cada una */
     gap: 0.5rem !important;
-    width: max-content !important; /* El contenedor se estira para que quepan las columnas */
+    width: max-content !important;
+    /* El contenedor se estira para que quepan las columnas */
     padding: 0 1rem 1rem 1rem !important;
   }
 
@@ -1571,31 +1713,87 @@ a:hover {
     box-sizing: border-box !important;
   }
 
-  .event, .reminder {
+  .event,
+  .reminder {
     font-size: 0.7rem !important;
     white-space: normal !important;
     word-wrap: break-word;
   }
+
   .profile-dropdown {
     top: auto;
-    bottom: -60px; /* Ajuste si tu header en móvil es muy pequeño */
+    bottom: -60px;
+    /* Ajuste si tu header en móvil es muy pequeño */
     right: 10px;
   }
-  
+
 }
+
 @media (prefers-color-scheme: dark) {
+
   input[type="text"],
   input[type="email"],
   input[type="password"],
   input[type="number"],
-  select {
-    background-color: #2d3748; /* Gris oscuro */
-    color: #ffffff; /* Texto blanco */
-    border: 2px solid #4a5568;
+  select,
+  textarea {
+    /* Forzamos texto oscuro y fondo blanco en estado normal */
+    color: #1a202c !important;
+    /* Gris muy oscuro, no negro puro */
+    background-color: #ffffff !important;
+    /* Blanco puro */
+    border: 2px solid #edf2f7;
+    /* Tu borde original */
+    transition: all 0.2s ease;
+    /* Suavidad al interactuar */
   }
 
-  /* El placeholder también debe cambiar para verse bien */
-  input::placeholder {
-    color: #a0aec0;
+  /* 3. Blindaje específico para cuando el usuario interactúa (Hovers/Focus) */
+  /* Esto arregla tu imagen. Forzamos que sigan siendo blanco y negro al editar. */
+  input[type="text"]:hover,
+  input[type="text"]:focus,
+  input[type="email"]:hover,
+  input[type="email"]:focus,
+  input[type="password"]:hover,
+  input[type="password"]:focus,
+  input[type="number"]:hover,
+  input[type="number"]:focus,
+  select:hover,
+  select:focus,
+  textarea:hover,
+  textarea:focus {
+    background-color: #ffffff !important;
+    /* Mantiene el fondo blanco */
+    color: #1a202c !important;
+    /* Mantiene el texto oscuro */
+    outline: none;
+    /* Quita el borde azul feo por defecto */
+    border-color: #005B97;
+    /* Usamos tu color ProActive para el borde */
+    box-shadow: 0 0 0 3px rgba(0, 91, 151, 0.1);
+    /* Efecto de resplandor suave */
+  }
+
+  /* 4. Blindaje para el PlaceHolder (Texto de ayuda) */
+  /* El placeholder también se vuelve blanco en modo oscuro, hay que oscurecerlo. */
+  input::placeholder,
+  textarea::placeholder {
+    color: #a0aec0 !important;
+    /* Un gris medio para que sea legible */
+    opacity: 1;
+    /* Necesario para Firefox */
+  }
+
+  /* 5. Blindaje para el autocompletado de Chrome */
+  /* Cuando Chrome te sugiere la contraseña, pone un fondo amarillo/azul feo. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: #1a202c !important;
+    /* Texto oscuro al autocompletar */
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    /* Fondo blanco al autocompletar */
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
