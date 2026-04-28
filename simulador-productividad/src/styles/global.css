@@ -1581,4 +1581,21 @@ a:hover {
     bottom: -60px; /* Ajuste si tu header en móvil es muy pequeño */
     right: 10px;
   }
+  
+}
+@media (prefers-color-scheme: dark) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  select {
+    background-color: #2d3748; /* Gris oscuro */
+    color: #ffffff; /* Texto blanco */
+    border: 2px solid #4a5568;
+  }
+
+  /* El placeholder también debe cambiar para verse bien */
+  input::placeholder {
+    color: #a0aec0;
+  }
 }
